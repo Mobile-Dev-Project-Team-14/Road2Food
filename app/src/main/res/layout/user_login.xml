@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/red"
+    android:gravity="center">
+
+
+    <TextView
+        android:layout_width="200sp"
+        android:layout_height="wrap_content"
+        android:text="Road 2"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:textSize="50sp"
+        />
+
+    <TextView
+        android:layout_width="200sp"
+        android:layout_height="wrap_content"
+        android:text="Food"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:textSize="50sp"
+        android:layout_marginTop="20dp"/>
+
+    <TextView
+        android:layout_width="200sp"
+        android:layout_height="wrap_content"
+        android:text="Email"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:layout_marginTop="30dp"/>
+
+    <EditText
+        android:id="@+id/user_email"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:hint="email"
+        android:background="@color/white"
+        android:layout_marginTop="10dp"
+        />
+
+    <TextView
+        android:layout_width="200sp"
+        android:layout_height="wrap_content"
+        android:text="Password"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:layout_marginTop="30dp"
+        />
+
+    <EditText
+        android:id="@+id/user_password"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:hint="Password"
+        android:background="@color/white"
+        android:layout_marginTop="10dp"/>
+
+    <Button
+        android:id="@+id/login"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Login"
+        android:background="@color/white"
+        android:layout_marginTop="30dp"
+        android:textColor="@color/red"/>
+
+    <Button
+        android:id="@+id/registration"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Register"
+        android:background="@color/white"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/red"/>
+
+    <TextView
+        android:layout_width="200sp"
+        android:layout_height="wrap_content"
+        android:text="Problems logging in?"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:layout_marginTop="30dp"/>
+
+</LinearLayout>
