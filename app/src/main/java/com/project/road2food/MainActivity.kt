@@ -22,6 +22,9 @@ class MainActivity : AppCompatActivity() {
             showLogIn()
         }
 
+        login.setOnClickListener{
+            showRegistration()
+        }
     }
 private fun showRegistration(){
     registration_layout.visibility= View.VISIBLE
@@ -32,3 +35,5 @@ private fun showRegistration(){
         login_layout.visibility=View.VISIBLE
     }
 }
+
+

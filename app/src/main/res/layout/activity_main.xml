@@ -6,18 +6,16 @@
     tools:context=".MainActivity">
 
 
-
-
-
     <include
         android:id="@+id/login_layout"
         layout="@layout/user_login"
-        android:visibility="visible"/>
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible" />
 <include
     android:id="@+id/registration_layout"
     layout="@layout/user_registeration"
     android:visibility="gone"/>
-
 
 
 </RelativeLayout>
