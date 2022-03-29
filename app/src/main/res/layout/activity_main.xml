@@ -17,5 +17,10 @@
     layout="@layout/user_registeration"
     android:visibility="gone"/>
 
+    <include
+        android:id="@+id/account_layout"
+        layout="@layout/account"
+        android:visibility="gone"/>
+
 
 </RelativeLayout>
