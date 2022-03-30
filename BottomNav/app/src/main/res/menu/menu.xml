@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/nav_home"
+        android:title="Home"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_home"
+        android:visible="true"/>
+    <item
+        android:id="@+id/nav_account"
+        android:title="Account"
+        android:enabled="true"
+        android:visible="true"
+        android:icon="@drawable/ic_baseline_account" />
+    <item
+        android:id="@+id/nav_map"
+        android:title="Map"
+        android:enabled="true"
+        android:visible="true"
+        android:icon="@drawable/ic_baseline_map" />
+    <item
+        android:id="@+id/nav_offers"
+        android:title="Offers"
+        android:enabled="true"
+        android:visible="true"
+        android:icon="@drawable/ic_baseline_offer"/>
+</menu>
