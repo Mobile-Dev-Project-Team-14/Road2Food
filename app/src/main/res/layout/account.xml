@@ -14,15 +14,17 @@
         android:background="@drawable/logout_button"
         android:text="Logout"
         android:textColor="@color/red"
+        android:textSize="14dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:layout_constraintTop_toBottomOf="@+id/textView5"/>
 
     <Button
         android:id="@+id/activeOffersButton"
+        style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="57dp"
         android:background="@color/red"
         android:text="Active offers"
@@ -39,31 +41,33 @@
         android:layout_marginTop="57dp"
         android:textColor="@color/white"
         app:layout_constraintEnd_toStartOf="@+id/availableButton"
-        app:layout_constraintHorizontal_bias="0.653"
         app:layout_constraintStart_toEndOf="@+id/activeOffersButton"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        style="?android:attr/borderlessButtonStyle"/>
 
     <Button
         android:id="@+id/availableButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="57dp"
-        android:layout_marginRight="10dp"
-        android:background="@color/red"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/account_buttons"
         android:text="Available offers"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        style="?android:attr/borderlessButtonStyle"/>
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Road 2 Food"
+        android:textSize="36dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="50dp"
         android:textColor="@color/white"/>
 
     <TextView
@@ -94,7 +98,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
         android:text="TextView"
-        android:layout_marginLeft="75dp"
+        android:layout_marginLeft="35dp"
         android:textColor="@color/white"
         app:layout_constraintStart_toEndOf="@+id/textView3"
         app:layout_constraintTop_toBottomOf="@+id/totalButton" />
@@ -104,10 +108,76 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
-        android:layout_marginLeft="75dp"
+        android:layout_marginLeft="35dp"
         android:text="Change password"
         android:textColor="@color/white"
         app:layout_constraintStart_toEndOf="@+id/textView3"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+    <TextView
+        android:id="@+id/tvActiveCount"
+        android:layout_width="0dp"
+        android:layout_height="17dp"
+        android:text="0"
+        android:textColor="@color/white"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="@+id/activeOffersButton"
+        app:layout_constraintEnd_toEndOf="@+id/activeOffersButton"
+        app:layout_constraintHorizontal_bias="0.523"
+        app:layout_constraintStart_toStartOf="@+id/activeOffersButton" />
+
+    <TextView
+        android:id="@+id/tvTotalCount"
+        android:layout_width="0dp"
+        android:layout_height="17dp"
+        android:text="0"
+        android:textColor="@color/white"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="@+id/totalButton"
+        app:layout_constraintEnd_toEndOf="@+id/totalButton"
+        app:layout_constraintStart_toStartOf="@+id/totalButton" />
+
+    <TextView
+        android:id="@+id/tvAvailableCount"
+        android:layout_width="0dp"
+        android:layout_height="17dp"
+        android:text="0"
+        android:textColor="@color/white"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="@+id/availableButton"
+        app:layout_constraintEnd_toEndOf="@+id/availableButton"
+        app:layout_constraintHorizontal_bias="0.45"
+        app:layout_constraintStart_toStartOf="@+id/availableButton" />
+
+    <TextView
+        android:id="@+id/tvWideLine"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/wide_separator"
+        android:text=""
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTotalCount" />
+
+    <TextView
+        android:id="@+id/tvVerticalLine"
+        android:layout_width="1dp"
+        android:layout_height="50dp"
+        android:background="@drawable/vertical_separator"
+        android:text=""
+        app:layout_constraintBottom_toTopOf="@+id/tvWideLine"
+        app:layout_constraintEnd_toStartOf="@+id/totalButton"
+        app:layout_constraintStart_toEndOf="@+id/activeOffersButton" />
+
+    <TextView
+        android:id="@+id/tvVerticalLine2"
+        android:layout_width="1dp"
+        android:layout_height="50dp"
+        android:background="@drawable/vertical_separator"
+        android:text=""
+        app:layout_constraintBottom_toTopOf="@+id/tvWideLine"
+        app:layout_constraintEnd_toStartOf="@+id/availableButton"
+        app:layout_constraintStart_toEndOf="@+id/totalButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

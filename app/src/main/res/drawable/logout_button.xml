@@ -8,7 +8,7 @@
         android:radius="20dp"
         />
     <size
-        android:width="250dp"
+        android:width="200dp"
         />
     <solid
         android:color="@color/white"
