@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">	#FF0000</color>
+    <color name="colorPrimary">#B62020</color>
     <color name="colorPrimaryDark">#FF6200EE</color>
     <color name="colorAccent">#1A92F1</color>
     <color name="colorPrimaryVariant">#18043A</color>
@@ -8,6 +8,6 @@
 
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
+    <color name="black">#D23C3939</color>
     <color name="white">#FFFFFFFF</color>
 </resources>

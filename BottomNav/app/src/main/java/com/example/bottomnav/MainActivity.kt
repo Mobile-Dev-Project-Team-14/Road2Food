@@ -1,70 +1,43 @@
 package com.example.bottomnav
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.navigation.NavigationBarView
+
 
 class MainActivity : AppCompatActivity() {
 
-
-    /**
-     *
-     */
-    val mOnNavigationItemSelectedListener: NavigationBarView.OnItemReselectedListener =
-        BottomNavigationView.OnNavigationItemReselectedListener { item ->
-            when (item.itemId) {
-                R.id.nav_home -> {
-                    println("Home")
-                    true
-                }
-                R.id.nav_account -> {
-                    println("Account")
-                    true
-                }
-                R.id.nav_map -> {
-                    println("Map")
-                    true
-                }
-                R.id.nav_offers -> {
-                    println("Offers")
-                    true
-                }
-            }
-            false
-        }
-
-    /**
-     *
-     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val bottomNavigationView = supportFragmentManager
 
-        val navView: BottomNavigationView = findViewById(R.id.bottom_navigation)
-        navView.setOnNavigationItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.nav_home -> {
-                    Toast.makeText(this, "Home selected", Toast.LENGTH_SHORT).show()
-                    true
-                }
-                R.id.nav_account -> {
-                    Toast.makeText(this, "Photos selected", Toast.LENGTH_SHORT).show()
-                    true
-                }
-                R.id.nav_map -> {
-                    Toast.makeText(this, "More selected", Toast.LENGTH_SHORT).show()
-                    true
-                }
-                R.id.nav_offers -> {
-                    Toast.makeText(this, "More selected", Toast.LENGTH_SHORT).show()
-                    true
-                }
-                else -> true
+        val firstFragment = HomeFragment()
+        val secondFragment = AccountFragment()
+        val thirdFragment = MapFragment()
+        val offersFragment = OffersFragment()
+
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        bottomNavigationView.setOnNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.home_nav -> setCurrentFragment(firstFragment)
+                R.id.account_nav -> setCurrentFragment(secondFragment)
+                R.id.map_nav -> setCurrentFragment(thirdFragment)
+                R.id.offers_nav -> setCurrentFragment(offersFragment)
             }
+            true
         }
+
     }
+
+    private fun setCurrentFragment(fragment: Fragment) =
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.flfragment, fragment)
+            commit()
+        }
 }
+
+
+
+
