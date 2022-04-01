@@ -10,7 +10,7 @@
         android:id="@+id/logoutButton"
         android:layout_width="wrap_content"
         android:layout_height="35dp"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="50dp"
         android:background="@drawable/logout_button"
         android:text="Logout"
         android:textColor="@color/red"
@@ -107,7 +107,7 @@
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="50dp"
         android:layout_marginLeft="35dp"
         android:text="Change password"
         android:textColor="@color/white"
@@ -152,7 +152,7 @@
     <TextView
         android:id="@+id/tvWideLine"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="1dp"
         android:layout_marginTop="4dp"
         android:background="@drawable/wide_separator"
         android:text=""
@@ -179,5 +179,6 @@
         app:layout_constraintBottom_toTopOf="@+id/tvWideLine"
         app:layout_constraintEnd_toStartOf="@+id/availableButton"
         app:layout_constraintStart_toEndOf="@+id/totalButton" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

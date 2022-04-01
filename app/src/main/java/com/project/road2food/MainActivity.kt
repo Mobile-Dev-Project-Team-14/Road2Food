@@ -1,6 +1,5 @@
 package com.project.road2food
 
-//import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
