@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "557229120124",
+    "project_id": "road2food-3b663",
+    "storage_bucket": "road2food-3b663.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:557229120124:android:3ae22793124ad7f8f587f9",
+        "android_client_info": {
+          "package_name": "com.project.road2food"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "557229120124-d1jtvdulu2gnbntgusa643leuj2r8c36.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAN2Q5q_Aw_Lwtxmt07DEDDvsTfHJ9xffI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "557229120124-d1jtvdulu2gnbntgusa643leuj2r8c36.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
