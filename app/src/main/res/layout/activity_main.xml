@@ -13,20 +13,19 @@
         android:layout_width="match_parent"
         android:layout_height="653dp"
         android:visibility="visible" />
-<include
-    android:id="@+id/registration_layout"
-    layout="@layout/user_registeration"
-    android:visibility="gone"/>
+    <include
+        android:id="@+id/registration_layout"
+        layout="@layout/user_registeration"
+        android:visibility="gone"/>
 
     <include
         android:id="@+id/account_layout"
         layout="@layout/account"
         android:visibility="gone"/>
-
-
-
-
-
+    <include
+        android:id="@+id/mapview_layout"
+        layout="@layout/mapview"
+        android:visibility="gone"/>
 
     <FrameLayout
         android:id="@+id/fragment_container"
