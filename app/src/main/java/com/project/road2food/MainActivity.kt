@@ -3,14 +3,18 @@ package com.project.road2food
 //import androidx.appcompat.app.AppCompatActivity
 //import com.google.android.material.navigation.NavigationBarView
 
+import android.Manifest
 import android.location.Location
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.preference.PreferenceManager
-import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.account.*
 import kotlinx.android.synthetic.main.activity_main.*
@@ -23,29 +27,64 @@ import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.MapView
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay
 
-
 class MainActivity : AppCompatActivity() {
     private val REQUEST_PERMISSIONS_REQUEST_CODE = 1;
     private lateinit var map : MapView
 
-
-
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    var latitude: Double = 125.000
+    var longitude: Double = 111.000
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
 
+        super.onCreate(savedInstanceState)
         getInstance().load(this, PreferenceManager.getDefaultSharedPreferences(this))
+
+        val locationPermissionRequest = registerForActivityResult(
+            ActivityResultContracts.RequestMultiplePermissions()
+        ) {
+            permissions ->
+            when {
+                permissions.getOrDefault(Manifest.permission.ACCESS_FINE_LOCATION, false) -> {
+                    // Precise location granted
+                }
+                permissions.getOrDefault(Manifest.permission.ACCESS_COARSE_LOCATION, false) -> {
+                    // Approx location granted
+                } else -> {
+                    // Permission denied
+                    println("Permission denied")
+                }
+            }
+        }
+            locationPermissionRequest.launch(
+                arrayOf(
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                )
+            )
+
+        fun initMap() {
+             val mapController = map.controller
+            mapController.setZoom(12.5)
+            val startPoint = GeoPoint(latitude, longitude)
+            println(startPoint)
+            mapController.setCenter(startPoint)
+        }
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        fusedLocationClient.lastLocation.addOnSuccessListener {
+            location : Location ->
+            longitude = location.longitude
+            latitude = location.latitude
+            initMap()
+            // Oulu -> val startPoint = GeoPoint(65.01236, 25.46816);
+        }
+        fusedLocationClient.lastLocation.addOnFailureListener { println("Location not found") }
 
         setContentView(R.layout.activity_main)
 
         map = findViewById<MapView>(R.id.map)
-        map.setTileSource(TileSourceFactory.MAPNIK);
-        val mapController = map.controller
-        mapController.setZoom(12.5)
-        val startPoint = GeoPoint(65.01236, 25.46816);
-        mapController.setCenter(startPoint);
-
-
+        map.setTileSource(TileSourceFactory.MAPNIK)
 
         val bottomNavigationView = supportFragmentManager
 
