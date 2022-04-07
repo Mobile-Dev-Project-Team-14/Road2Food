@@ -9,7 +9,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -27,8 +26,7 @@ import org.osmdroid.config.Configuration.*
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.MapView
-import org.osmdroid.views.overlay.Marker
-import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay
+import org.osmdroid.views.overlay.*
 
 class MainActivity : AppCompatActivity() {
     private val REQUEST_PERMISSIONS_REQUEST_CODE = 1;
@@ -39,7 +37,9 @@ class MainActivity : AppCompatActivity() {
     var latitude: Double = 125.000
     var longitude: Double = 111.000
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
+
 
         super.onCreate(savedInstanceState)
         getInstance().load(this, PreferenceManager.getDefaultSharedPreferences(this))
@@ -72,21 +72,38 @@ class MainActivity : AppCompatActivity() {
                 )
             )
 
+
+
         fun initMap() {
-             val mapController = map.controller
+            val mapController = map.controller
             mapController.setZoom(12.5)
             val startPoint = GeoPoint(latitude, longitude)
             println(startPoint)
             mapController.setCenter(startPoint)
 
-            val firstMarker = Marker(mapView)
+            val userPosition = Marker(mapView)
             var geoPoint = GeoPoint(latitude, longitude)
-            firstMarker.position = geoPoint
+            userPosition.position = geoPoint
 
-            firstMarker.setAnchor(Marker.ANCHOR_BOTTOM, Marker.ANCHOR_CENTER)
-            firstMarker.title = "You're here!"
-            firstMarker.icon = ContextCompat.getDrawable(this, R.drawable.ic_you)
-            mapView.overlays.add(firstMarker)
+            userPosition.setAnchor(Marker.ANCHOR_BOTTOM, Marker.ANCHOR_CENTER)
+            userPosition.title = "You're here!"
+            userPosition.icon = ContextCompat.getDrawable(this, R.drawable.ic_you)
+            mapView.overlays.add(userPosition)
+
+            val restaurant_1 = Marker(mapView)
+            val restaurant_1_pos = GeoPoint(65.011113, 25.46902)
+            val restaurant_1_address = "Kirkkokatu 14, 90100 Oulu"
+            val restaurant_1_name = "Viikinki ravintola Harald"
+
+            restaurant_1.icon = ContextCompat.getDrawable(this, R.drawable.ic_location_pin)
+            restaurant_1.position = restaurant_1_pos
+
+           val infoWindow = MarkerWindow(mapView)
+            restaurant_1.infoWindow = infoWindow
+
+
+            mapView.overlays.add(restaurant_1)
+            //mapView.overlays.add(restaurant_1)
             mapView.invalidate()
         }
 
@@ -185,5 +202,6 @@ private fun showRegistration(){
         mapview_layout.visibility=View.VISIBLE
     }
 }
+
 
 
