@@ -3,19 +3,25 @@ package com.project.road2food
 //import androidx.appcompat.app.AppCompatActivity
 //import com.google.android.material.navigation.NavigationBarView
 
+import android.Manifest
 import android.location.Location
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.preference.PreferenceManager
-import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.account.*
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.mapview.*
 import kotlinx.android.synthetic.main.user_login.*
 import kotlinx.android.synthetic.main.user_login.registration
 import kotlinx.android.synthetic.main.user_registeration.*
@@ -23,6 +29,7 @@ import org.osmdroid.config.Configuration.*
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.MapView
+import org.osmdroid.views.overlay.Marker
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay
 
 class MainActivity : AppCompatActivity() {
@@ -30,23 +37,72 @@ class MainActivity : AppCompatActivity() {
     private lateinit var map : MapView
 
 
-
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    var latitude: Double = 125.000
+    var longitude: Double = 111.000
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
 
+        super.onCreate(savedInstanceState)
         getInstance().load(this, PreferenceManager.getDefaultSharedPreferences(this))
 
         setContentView(R.layout.activity_main)
 
-        map = findViewById<MapView>(R.id.map)
-        map.setTileSource(TileSourceFactory.MAPNIK);
-        val mapController = map.controller
-        mapController.setZoom(12.5)
-        val startPoint = GeoPoint(65.01236, 25.46816);
-        mapController.setCenter(startPoint);
+        map = findViewById<MapView>(R.id.mapView)
+        map.setTileSource(TileSourceFactory.MAPNIK)
+
+        val locationPermissionRequest = registerForActivityResult(
+            ActivityResultContracts.RequestMultiplePermissions()
+        ) {
+            permissions ->
+            when {
+                permissions.getOrDefault(Manifest.permission.ACCESS_FINE_LOCATION, false) -> {
+                    // Precise location granted
+                }
+                permissions.getOrDefault(Manifest.permission.ACCESS_COARSE_LOCATION, false) -> {
+                    // Approx location granted
+                } else -> {
+                    // Permission denied
+                    println("Permission denied")
+                }
+            }
+        }
+            locationPermissionRequest.launch(
+                arrayOf(
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                )
+            )
+
+        fun initMap() {
+             val mapController = map.controller
+            mapController.setZoom(12.5)
+            val startPoint = GeoPoint(latitude, longitude)
+            println(startPoint)
+            mapController.setCenter(startPoint)
+
+            val firstMarker = Marker(mapView)
+            var geoPoint = GeoPoint(latitude, longitude)
+            firstMarker.position = geoPoint
+
+            firstMarker.setAnchor(Marker.ANCHOR_BOTTOM, Marker.ANCHOR_CENTER)
+            firstMarker.title = "You're here!"
+            firstMarker.icon = ContextCompat.getDrawable(this, R.drawable.ic_you)
+            mapView.overlays.add(firstMarker)
+            mapView.invalidate()
+        }
 
 
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        fusedLocationClient.lastLocation.addOnSuccessListener {
+            location : Location ->
+            longitude = location.longitude
+            latitude = location.latitude
+
+            initMap()
+            // Oulu -> val startPoint = GeoPoint(65.01236, 25.46816);
+        }
+        fusedLocationClient.lastLocation.addOnFailureListener { println("Location not found") }
 
         val bottomNavigationView = supportFragmentManager
 
