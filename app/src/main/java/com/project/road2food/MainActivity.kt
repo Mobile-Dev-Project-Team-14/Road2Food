@@ -41,6 +41,7 @@ class MainActivity : AppCompatActivity() {
     var latitude: Double = 125.000
     var longitude: Double = 111.000
 
+    // ---> Start of onCreate
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -51,6 +52,7 @@ class MainActivity : AppCompatActivity() {
         map = findViewById<MapView>(R.id.mapView)
         map.setTileSource(TileSourceFactory.MAPNIK)
 
+        // Request permissions to access device location --->
         val locationPermissionRequest = registerForActivityResult(
             ActivityResultContracts.RequestMultiplePermissions()
         ) {
@@ -73,7 +75,9 @@ class MainActivity : AppCompatActivity() {
                     Manifest.permission.ACCESS_COARSE_LOCATION
                 )
             )
+        // <--- End of permission request
 
+        // ---> Initialize map
         fun initMap() {
              val mapController = map.controller
             mapController.setZoom(12.5)
@@ -81,15 +85,17 @@ class MainActivity : AppCompatActivity() {
             println(startPoint)
             mapController.setCenter(startPoint)
 
-            val firstMarker = Marker(mapView)
+            // Set icons to map --->
+            val userPosition = Marker(mapView)
             var geoPoint = GeoPoint(latitude, longitude)
-            firstMarker.position = geoPoint
+            userPosition.position = geoPoint
 
-            firstMarker.setAnchor(Marker.ANCHOR_BOTTOM, Marker.ANCHOR_CENTER)
-            firstMarker.title = "You're here!"
-            firstMarker.icon = ContextCompat.getDrawable(this, R.drawable.ic_you)
-            mapView.overlays.add(firstMarker)
+            userPosition.setAnchor(Marker.ANCHOR_BOTTOM, Marker.ANCHOR_CENTER)
+            userPosition.title = "You're here!"
+            userPosition.icon = ContextCompat.getDrawable(this, R.drawable.ic_you)
+            mapView.overlays.add(userPosition)
             mapView.invalidate()
+            // <--- End of map icons
         }
 
 
@@ -103,7 +109,7 @@ class MainActivity : AppCompatActivity() {
             // Oulu -> val startPoint = GeoPoint(65.01236, 25.46816);
         }
         fusedLocationClient.lastLocation.addOnFailureListener { println("Location not found") }
-
+        // <--- End of map
         val bottomNavigationView = supportFragmentManager
 
         registration.setOnClickListener{
@@ -141,7 +147,7 @@ class MainActivity : AppCompatActivity() {
                 else -> true
             }
         }
-    } // end of onCreate
+    } // <--- End of onCreate
 
     override fun onResume() {
         super.onResume()
