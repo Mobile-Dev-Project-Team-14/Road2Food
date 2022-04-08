@@ -3,49 +3,86 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/infoBoxLayout"
     android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <TextView
-        android:id="@+id/text_view"
-        android:layout_width="match_parent"
+    android:layout_width="250dp"
+    android:layout_height="wrap_content"
+    android:background="@drawable/infobox_background"
+    >
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:layout_marginStart="5dp"
-        android:text="Title"
-        android:textColor="@color/black" />
-
+        android:layout_marginTop="5dp"
+        >
+        <TextView
+            android:id="@+id/tvInfoboxTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="20sp"
+            android:layout_marginStart="10dp"
+            android:text="Title"
+            android:textColor="@color/black" />
+        <Button
+            android:id="@+id/closeInfo"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/ic_close"/>
+    </LinearLayout>
     <Space
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />
-
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_marginTop="10dp">
 
-        <Button
-            android:id="@+id/move_button"
-            android:layout_width="120dp"
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="5dp"
-            android:backgroundTint="@android:color/darker_gray"
-            android:text="move"
-            android:textColor="@color/black" />
-
-
-        <Button
-            android:id="@+id/delete_button"
-            android:layout_width="120dp"
+            android:layout_weight="1">
+        <TextView
+            android:id="@+id/tvInfoboxAddress"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="10dp"
-            android:backgroundTint="@android:color/darker_gray"
-            android:text="delete"
-            android:textColor="@color/black" />
+            android:text="Address"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/black"/>
+        <TextView
+            android:id="@+id/tvInfoboxCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Category"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/black"/>
+        <TextView
+            android:id="@+id/tvInfoboxFeatured"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Featured stuff?"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/black"/>
+        </LinearLayout>
 
+        <TextView
+            android:id="@+id/tvInfoboxHours"
+            android:layout_marginRight="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Opening hours"
+            android:textColor="@color/black"/>
     </LinearLayout>
 
+    <Button
+        android:id="@+id/btnViewOffers"
+        android:layout_width="120dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center_horizontal"
+        android:text="View Offers"
+        android:background="@drawable/infobox_offers_btn"
+        android:textColor="@color/white" />
 </LinearLayout>

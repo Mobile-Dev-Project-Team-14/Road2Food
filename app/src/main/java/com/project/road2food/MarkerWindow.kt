@@ -10,22 +10,18 @@ class MarkerWindow(private val info: MapView):
     override fun onOpen(item: Any?) {
         closeAllInfoWindowsOn(mapView)
 
-        val moveButton = mView.findViewById<Button>(R.id.move_button)
-        val deleteButton = mView.findViewById<Button>(R.id.delete_button)
+        val closeInfoBox = mView.findViewById<Button>(R.id.closeInfo)
+        val viewOffers = mView.findViewById<Button>(R.id.btnViewOffers)
 
-        moveButton.setOnClickListener {
-        }
-        deleteButton.setOnClickListener {
-        }
-
-
-        mView.setOnClickListener {
+        closeInfoBox.setOnClickListener {
             close()
+        }
+        viewOffers.setOnClickListener {
         }
     }
 
     override fun onClose() {
-        TODO("Not yet implemented")
+        return
     }
 
 }
