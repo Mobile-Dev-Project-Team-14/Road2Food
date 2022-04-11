@@ -9,7 +9,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -29,13 +28,11 @@ import org.osmdroid.config.Configuration.*
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.MapView
-import org.osmdroid.views.overlay.Marker
-import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay
+import org.osmdroid.views.overlay.*
 
 class MainActivity : AppCompatActivity() {
     private val REQUEST_PERMISSIONS_REQUEST_CODE = 1;
     private lateinit var map : MapView
-
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     var latitude: Double = 125.000
@@ -79,13 +76,13 @@ class MainActivity : AppCompatActivity() {
 
         // ---> Initialize map
         fun initMap() {
-             val mapController = map.controller
-            mapController.setZoom(12.5)
+            val mapController = map.controller
+            mapController.setZoom(14.5)
             val startPoint = GeoPoint(latitude, longitude)
             println(startPoint)
             mapController.setCenter(startPoint)
+            map.setMultiTouchControls(true)
 
-            // Set icons to map --->
             val userPosition = Marker(mapView)
             var geoPoint = GeoPoint(latitude, longitude)
             userPosition.position = geoPoint
@@ -94,19 +91,32 @@ class MainActivity : AppCompatActivity() {
             userPosition.title = "You're here!"
             userPosition.icon = ContextCompat.getDrawable(this, R.drawable.ic_you)
             mapView.overlays.add(userPosition)
-            mapView.invalidate()
-            // <--- End of map icons
-        }
 
+            val db = Firebase.firestore
+            db.collection("restaurants").get().addOnSuccessListener {
+                for (restaurant in it){
+                    val restaurantMarker = Marker(mapView)
+                    val geo = restaurant.getGeoPoint("coordinates")
+                    val latitude: Double = geo!!.latitude
+                    val longitude: Double = geo!!.longitude
+                    val restaurantPos = GeoPoint(latitude, longitude)
+                    restaurantMarker.position = restaurantPos
+                    restaurantMarker.icon = ContextCompat.getDrawable(this, R.drawable.ic_location_pin)
+                    val infoWindow = MarkerWindow(mapView, restaurant.id)
+                    restaurantMarker.infoWindow = infoWindow
+
+                    mapView.overlays.add(restaurantMarker)
+                    mapView.invalidate()
+                }
+            }
+        }
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         fusedLocationClient.lastLocation.addOnSuccessListener {
             location : Location ->
             longitude = location.longitude
             latitude = location.latitude
-
             initMap()
-            // Oulu -> val startPoint = GeoPoint(65.01236, 25.46816);
         }
         fusedLocationClient.lastLocation.addOnFailureListener { println("Location not found") }
         // <--- End of map
@@ -193,5 +203,6 @@ private fun showRegistration(){
         mapview_layout.visibility=View.VISIBLE
     }
 }
+
 
 

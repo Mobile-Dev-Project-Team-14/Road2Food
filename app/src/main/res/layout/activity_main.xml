@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-
     <include
         android:id="@+id/login_layout"
         layout="@layout/user_login"
@@ -17,7 +16,6 @@
         android:id="@+id/registration_layout"
         layout="@layout/user_registeration"
         android:visibility="gone"/>
-
     <include
         android:id="@+id/account_layout"
         layout="@layout/account"
@@ -26,7 +24,6 @@
         android:id="@+id/mapview_layout"
         layout="@layout/mapview"
         android:visibility="gone"/>
-
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
@@ -37,7 +34,6 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
@@ -52,17 +48,5 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/menu" />
-
-
-
-
-
-
-
-
-
-
-
-
 
 </RelativeLayout>
