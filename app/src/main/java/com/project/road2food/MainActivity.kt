@@ -38,6 +38,7 @@ class MainActivity : AppCompatActivity() {
     var latitude: Double = 125.000
     var longitude: Double = 111.000
 
+    // ---> Start of onCreate
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -48,6 +49,7 @@ class MainActivity : AppCompatActivity() {
         map = findViewById<MapView>(R.id.mapView)
         map.setTileSource(TileSourceFactory.MAPNIK)
 
+        // Request permissions to access device location --->
         val locationPermissionRequest = registerForActivityResult(
             ActivityResultContracts.RequestMultiplePermissions()
         ) {
@@ -70,7 +72,9 @@ class MainActivity : AppCompatActivity() {
                     Manifest.permission.ACCESS_COARSE_LOCATION
                 )
             )
+        // <--- End of permission request
 
+        // ---> Initialize map
         fun initMap() {
             val mapController = map.controller
             mapController.setZoom(14.5)
@@ -105,7 +109,6 @@ class MainActivity : AppCompatActivity() {
                     mapView.invalidate()
                 }
             }
-
         }
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
@@ -116,7 +119,7 @@ class MainActivity : AppCompatActivity() {
             initMap()
         }
         fusedLocationClient.lastLocation.addOnFailureListener { println("Location not found") }
-
+        // <--- End of map
         val bottomNavigationView = supportFragmentManager
 
         registration.setOnClickListener{
@@ -154,7 +157,7 @@ class MainActivity : AppCompatActivity() {
                 else -> true
             }
         }
-    } // end of onCreate
+    } // <--- End of onCreate
 
     override fun onResume() {
         super.onResume()
