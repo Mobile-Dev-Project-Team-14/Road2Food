@@ -5,20 +5,26 @@ package com.project.road2food
 
 import android.Manifest
 import android.location.Location
+import android.os.Build
 import android.os.Bundle
-import android.util.Log
+import android.text.TextUtils.replace
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
 import com.google.android.gms.location.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import kotlinx.android.synthetic.main.account.*
+import com.project.road2food.data.AccountFragment
+import com.project.road2food.data.HomeFragment
+import com.project.road2food.data.OffersFragment
+import com.project.road2food.data.model.Map1Fragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.mapview.*
 import kotlinx.android.synthetic.main.user_login.*
@@ -31,6 +37,13 @@ import org.osmdroid.views.MapView
 import org.osmdroid.views.overlay.*
 
 class MainActivity : AppCompatActivity() {
+
+  //  val home = HomeFragment()
+  //  val account = AccountFragment()
+  //  val maps = Map1Fragment()
+ //   val offers = OffersFragment()
+
+
     private val REQUEST_PERMISSIONS_REQUEST_CODE = 1;
     private lateinit var map : MapView
 
@@ -39,12 +52,14 @@ class MainActivity : AppCompatActivity() {
     var longitude: Double = 111.000
 
     // ---> Start of onCreate
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
         getInstance().load(this, PreferenceManager.getDefaultSharedPreferences(this))
 
         setContentView(R.layout.activity_main)
+
 
         map = findViewById<MapView>(R.id.mapView)
         map.setTileSource(TileSourceFactory.MAPNIK)
@@ -204,5 +219,31 @@ private fun showRegistration(){
     }
 }
 
+// override fun onCreate(savedInstanceState: Bundle?) {
+ //   super.onCreate(savedInstanceState)
+   // setContentView(R.layout.activity_main)
 
+   // val home = HomeFragment()
+ //   val map = Map1Fragment()
+  //  val discount = OffersFragment()
+  //  val account = AccountFragment()
 
+  //  setCurrentFragment(home)
+
+ //   bottom_navigation.setOnItemSelectedListener {
+ //       when (it.itemId) {
+   //         R.id.nav_home -> setCurrentFragment(home)
+    //        R.id.nav_map -> setCurrentFragment(map)
+     //       R.id.nav_offers -> setCurrentFragment(discount)
+    //        R.id.nav_account -> setCurrentFragment(account)
+   //     }
+    //    true
+  //  }
+// }
+
+//private fun setCurrentFragment(fragment: Fragment) =
+  //  supportFragmentManager.beginTransaction().apply {
+    //    replace(R.id.fragment_container, fragment)
+      //  commit()
+   // }
+//}
