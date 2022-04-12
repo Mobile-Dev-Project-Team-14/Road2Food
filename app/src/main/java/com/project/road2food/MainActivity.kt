@@ -131,8 +131,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         login.setOnClickListener{
-            showMap()
+            //showMap()
             //showAccount()
+            showQr()
         }
 
         val navView: BottomNavigationView = findViewById(R.id.bottom_navigation)
@@ -201,6 +202,10 @@ private fun showRegistration(){
         login_layout.visibility=View.GONE
         account_layout.visibility=View.GONE
         mapview_layout.visibility=View.VISIBLE
+    }
+    private fun showQr(){
+        registration_layout.visibility= View.GONE
+        login_layout.visibility=View.GONE
     }
 }
 
