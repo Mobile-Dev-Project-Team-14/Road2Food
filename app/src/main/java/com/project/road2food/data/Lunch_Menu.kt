@@ -8,7 +8,6 @@ import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.project.road2food.R
-import com.project.road2food.data.model.Map1Fragment
 
 class Lunch_Menu: Fragment() {
 

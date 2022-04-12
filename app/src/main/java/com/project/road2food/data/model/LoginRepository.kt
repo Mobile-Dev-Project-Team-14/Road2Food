@@ -1,6 +1,5 @@
-package com.project.road2food.data
+package com.project.road2food.data.model
 
-import com.project.road2food.data.model.LoggedInUser
 
 /**
  * Class that requests authentication and user information from the remote data source and

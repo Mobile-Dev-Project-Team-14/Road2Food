@@ -1,4 +1,4 @@
-package com.project.road2food.data
+package com.project.road2food.data.model
 
 /**
  * A generic class that holds a value with its loading status.

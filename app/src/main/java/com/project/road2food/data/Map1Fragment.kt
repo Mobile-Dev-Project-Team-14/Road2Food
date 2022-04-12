@@ -1,4 +1,4 @@
-package com.project.road2food.data.model
+package com.project.road2food.data
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

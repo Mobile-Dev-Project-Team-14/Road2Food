@@ -1,70 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/red"
     android:orientation="vertical"
-    tools:context=".data.model.Map1Fragment">
-
-    <ImageView
-        android:id="@+id/arrow_map_back"
-        android:layout_width="69dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginBottom="703dp"
-        android:clickable="true"
-        android:src="@drawable/ic_arrow_back"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:focusable="true" />
+    tools:context=".data.Map1Fragment">
 
     <ImageView
         android:id="@+id/road2"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_centerInParent="true"
-        android:layout_gravity="center"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="20dp"
-        android:clickable="true"
-        android:src="@drawable/logo1trns"
-        android:visibility="visible"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/arrow_map_back" />
-
-    <TextView
-        android:id="@+id/text_map"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:gravity="center"
-        android:text="MAP"
-        android:textAllCaps="false"
-        android:textColor="@color/colorPrimaryVariant"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/road2" />
+        android:layout_marginStart="30dp"
+        android:src="@drawable/logo1trns" />
 
     <ImageView
-        android:id="@+id/map"
-        android:layout_width="412dp"
-        android:layout_height="376dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="10dp"
+        android:id="@+id/map_back"
+        android:layout_width="82dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="280dp"
+        android:layout_marginTop="30dp"
         android:clickable="true"
         android:focusable="true"
-        android:src="@drawable/ic_restaurant"
-        android:visibility="visible"
+        android:src="@drawable/ic_go_back"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_map"
-        app:layout_constraintVertical_bias="0.289" />
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/offers_layout_main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="155sp"
+        android:text="MAP"
+        android:textColor="@color/colorPrimaryVariant"
+        android:textSize="30sp"
+        android:textStyle="bold"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:src="@drawable/ic_restaurant"
+        android:clickable="true"
+        android:paddingEnd="20dp"
+        android:baselineAlignBottom="true"
+        android:layout_marginTop="230dp"
+        android:focusable="true" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

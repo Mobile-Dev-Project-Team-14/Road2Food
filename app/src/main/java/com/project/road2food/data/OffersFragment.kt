@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.project.road2food.R
 
-
 class OffersFragment: Fragment() {
 
     override fun onCreateView(

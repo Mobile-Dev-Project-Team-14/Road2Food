@@ -8,9 +8,7 @@ import android.widget.Button
 import android.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
-
 import com.project.road2food.R
-import com.project.road2food.data.model.Map1Fragment
 
 class HomeFragment : Fragment(R.layout.fragment_home) { override fun onCreateView(
     inflater: LayoutInflater,

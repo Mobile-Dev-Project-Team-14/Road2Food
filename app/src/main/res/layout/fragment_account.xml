@@ -9,13 +9,13 @@
     tools:context=".data.AccountFragment">
 
     <ImageView
-        android:id="@+id/arrow_map_back"
-        android:layout_width="69dp"
-        android:layout_height="18dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="10dp"
+        android:id="@+id/account_back"
+        android:layout_width="115dp"
+        android:layout_height="26dp"
+        android:layout_marginStart="280dp"
+        android:layout_marginTop="30dp"
         android:clickable="true"
-        android:src="@drawable/ic_arrow_back"
+        android:src="@drawable/ic_go_back"
         android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -32,7 +32,8 @@
             android:src="@drawable/logo1trns"
             android:visibility="visible"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/arrow_map_back" />
+            app:layout_constraintTop_toTopOf="@+id/arrow_account_back"
+            android:focusable="true" />
 
 
     <TextView

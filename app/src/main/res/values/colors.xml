@@ -12,8 +12,8 @@
 
     <color name="colorPrimary">	#FF0000</color>
     <color name="colorPrimaryDark">#FF6200EE</color>
-    <color name="colorAccent">#1A92F1</color>
-    <color name="colorPrimaryVariant">#18043A</color>
+    <color name="colorAccent">#ED695F</color>
+    <color name="colorPrimaryVariant">#9C99A1</color>
     <color name="colorOnPrimary">#34023C</color>
 
 
