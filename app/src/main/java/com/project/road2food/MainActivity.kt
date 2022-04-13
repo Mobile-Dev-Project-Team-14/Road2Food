@@ -26,6 +26,7 @@ import kotlinx.android.synthetic.main.mapview.*
 import kotlinx.android.synthetic.main.user_login.*
 import kotlinx.android.synthetic.main.user_login.registration
 import kotlinx.android.synthetic.main.user_registeration.*
+import org.osmdroid.api.IMapView
 import org.osmdroid.config.Configuration.*
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.util.GeoPoint
@@ -130,6 +131,39 @@ class MainActivity : AppCompatActivity() {
         }
         fusedLocationClient.lastLocation.addOnFailureListener { println("Location not found") }
         // <--- End of map
+
+        fun setCurrentFragment(fragment: Fragment) =
+            supportFragmentManager.beginTransaction().apply {
+                replace(R.id.fragment_container, fragment)
+                commit()
+            }
+
+        fun showHome(){
+            offers_layout.visibility= View.GONE
+            account_layout.visibility=View.GONE
+            //home_layout.visibility=View.VISIBLE
+            mapview_layout.visibility=View.GONE
+            setCurrentFragment(home)
+        }
+        fun showOffers(){
+            offers_layout.visibility= View.VISIBLE
+            account_layout.visibility=View.GONE
+            home_layout.visibility=View.GONE
+            mapview_layout.visibility=View.GONE
+        }
+        fun showAccount(){
+            offers_layout.visibility= View.GONE
+            account_layout.visibility=View.VISIBLE
+            home_layout.visibility=View.GONE
+            mapview_layout.visibility=View.GONE
+        }
+        fun showMap(){
+            offers_layout.visibility= View.GONE
+            account_layout.visibility=View.GONE
+            home_layout.visibility=View.GONE
+            mapview_layout.visibility=View.VISIBLE
+        }
+
         val bottomNavigationView = supportFragmentManager
 /*
         registration.setOnClickListener{
@@ -147,11 +181,8 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        fun setCurrentFragment(fragment: Fragment) =
-          supportFragmentManager.beginTransaction().apply {
-            replace(R.id.fragment_container, fragment)
-          commit()
-             }
+
+
 
         bottom_navigation.setOnItemSelectedListener {
                    when (it.itemId) {
@@ -162,15 +193,6 @@ class MainActivity : AppCompatActivity() {
                  }
                 true
               }
-
-
-
-
-
-
-
-
-
 
 
 
@@ -228,28 +250,4 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun showHome(){
-        offers_layout.visibility= View.GONE
-        account_layout.visibility=View.GONE
-        home_layout.visibility=View.VISIBLE
-        mapview_layout.visibility=View.GONE
-    }
-    private fun showOffers(){
-        offers_layout.visibility= View.VISIBLE
-        account_layout.visibility=View.GONE
-        home_layout.visibility=View.GONE
-        mapview_layout.visibility=View.GONE
-    }
-    private fun showAccount(){
-        offers_layout.visibility= View.GONE
-        account_layout.visibility=View.VISIBLE
-        home_layout.visibility=View.GONE
-        mapview_layout.visibility=View.GONE
-    }
-    private fun showMap(){
-        offers_layout.visibility= View.GONE
-        account_layout.visibility=View.GONE
-        home_layout.visibility=View.GONE
-        mapview_layout.visibility=View.VISIBLE
-    }
 }

@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import com.project.road2food.MainActivity
 import com.project.road2food.R
 
 class HomeFragment : Fragment(R.layout.fragment_home) { override fun onCreateView(
@@ -26,6 +27,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) { override fun onCreateVie
 
     view.findViewById<Button>(R.id.btnmap)
     btnmap.setOnClickListener {
+
         val mapFragment = Map1Fragment()
         val transaction: FragmentTransaction = requireFragmentManager().beginTransaction()
         transaction.replace(R.id.fragment_container, mapFragment)
