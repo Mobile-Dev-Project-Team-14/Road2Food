@@ -1,9 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorPrimary">
+
+    <ImageView
+        android:id="@+id/road2"
+        android:layout_width="0dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="131dp"
+        android:src="@drawable/logo1trns"
+        app:layout_constraintBottom_toTopOf="@+id/offers_layout_main"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/offers_layout_main" />
+
+    <ImageView
+        android:id="@+id/offer_back"
+        android:layout_width="116dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="292dp"
+        android:layout_marginBottom="664dp"
+        android:focusable="true"
+        android:src="@drawable/ic_go_back"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/offers_layout_main"
@@ -15,24 +38,146 @@
         android:text="TODAY'S OFFERS"
         android:textColor="@color/colorPrimaryVariant"
         android:textSize="30sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/road2"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginStart="30dp"
-        android:src="@drawable/logo1trns" />
-
-    <ImageView
-        android:id="@+id/offer_back"
-        android:layout_width="82dp"
+    <TextView
+        android:id="@+id/category"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="280dp"
-        android:layout_marginTop="30dp"
-        android:focusable="true"
-        android:src="@drawable/ic_go_back"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_marginEnd="131dp"
+        android:text="Select Category:"
+        android:textSize="23sp"
+        android:textColor="@color/colorOnPrimary"
+        android:textStyle="bold"
+        android:textAllCaps="false"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toStartOf="@+id/offer_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/offers_layout_main"
+        tools:ignore="MissingConstraints" />
 
-</FrameLayout>
+    <TableLayout
+        android:id="@+id/tableLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="50dp"
+        app:layout_constraintTop_toBottomOf="@id/offers_layout_main">
+
+        <TableRow
+            android:layout_marginTop="5dp"
+            android:background="@color/white"
+            android:padding="3dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="8dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:text="Asian Cusine"
+                android:textColor="@color/black"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/fd2"
+                android:layout_width="217dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="55dp"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                android:text="Mexican Cusine"
+                android:textColor="@color/black"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/background_cusine"
+            android:padding="3dp">
+
+            <ImageView
+                android:id="@+id/meal1"
+                android:layout_width="80dp"
+                android:layout_height="100dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_weight="1"
+                android:src="@drawable/dinner" />
+
+            <ImageView
+                android:id="@+id/meal2"
+                android:layout_width="80dp"
+                android:layout_height="100dp"
+                android:layout_marginRight="7dp"
+                android:layout_weight="1"
+                android:src="@drawable/lunch" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:background="@color/white"
+            android:padding="3dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="8dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:text="Italian Cusine"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/fd3"
+                android:layout_width="217dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="55dp"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                android:text="Middle Eastern Cusine"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </TableRow>
+
+        <TableRow
+            android:layout_marginTop="10dp"
+            android:background="@drawable/background_cusine"
+            android:padding="3dp">
+
+            <ImageView
+                android:id="@+id/meal3"
+                android:layout_width="80dp"
+                android:layout_height="100dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_weight="1"
+                android:src="@drawable/dinner" />
+
+            <ImageView
+                android:id="@+id/meal4"
+                android:layout_width="80dp"
+                android:layout_height="100dp"
+                android:layout_marginRight="7dp"
+                android:layout_weight="1"
+                android:src="@drawable/lunch" />
+
+        </TableRow>
+
+    </TableLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

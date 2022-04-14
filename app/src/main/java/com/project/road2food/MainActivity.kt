@@ -6,32 +6,27 @@ package com.project.road2food
 import android.Manifest
 import android.location.Location
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
-import com.google.android.gms.location.*
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.project.road2food.data.*
-import kotlinx.android.synthetic.main.account.*
+import com.project.road2food.data.AccountFragment
+import com.project.road2food.data.HomeFragment
+import com.project.road2food.data.OffersFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.mapview.*
-import kotlinx.android.synthetic.main.user_login.*
-import kotlinx.android.synthetic.main.user_login.registration
-import kotlinx.android.synthetic.main.user_registeration.*
-import org.osmdroid.api.IMapView
-import org.osmdroid.config.Configuration.*
+import org.osmdroid.config.Configuration.getInstance
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.MapView
-import org.osmdroid.views.overlay.*
+import org.osmdroid.views.overlay.Marker
 
 class MainActivity : AppCompatActivity() {
     private val REQUEST_PERMISSIONS_REQUEST_CODE = 1;
