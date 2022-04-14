@@ -27,7 +27,7 @@
     <include
         android:id="@+id/home_layout"
         layout="@layout/fragment_home"
-        android:visibility="gone"/>
+        android:visibility="visible"/>
     <include
         android:id="@+id/offers_layout"
         layout="@layout/fragment_offers"

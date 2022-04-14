@@ -41,9 +41,6 @@ class MainActivity : AppCompatActivity() {
     var latitude: Double = 125.000
     var longitude: Double = 111.000
 
-
-
-
     // ---> Start of onCreate
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -141,9 +138,9 @@ class MainActivity : AppCompatActivity() {
         fun showHome(){
             offers_layout.visibility= View.GONE
             account_layout.visibility=View.GONE
-            //home_layout.visibility=View.VISIBLE
+            home_layout.visibility=View.VISIBLE
             mapview_layout.visibility=View.GONE
-            setCurrentFragment(home)
+            //setCurrentFragment(home)
         }
         fun showOffers(){
             offers_layout.visibility= View.VISIBLE
@@ -173,16 +170,11 @@ class MainActivity : AppCompatActivity() {
         log.setOnClickListener{
             showLogIn()
         }
-*/
+
         login.setOnClickListener{
             showMap()
             //showAccount()
-        }
-
-
-
-
-
+        }*/
 
         bottom_navigation.setOnItemSelectedListener {
                    when (it.itemId) {
@@ -193,13 +185,6 @@ class MainActivity : AppCompatActivity() {
                  }
                 true
               }
-
-
-
-
-
-
-
 
         /*val navView: BottomNavigationView = findViewById(R.id.bottom_navigation)
         navView.setOnNavigationItemSelectedListener { item ->
@@ -224,6 +209,7 @@ class MainActivity : AppCompatActivity() {
                 else -> true
             }
         }*/
+
     } // <--- End of onCreate
 
     override fun onResume() {
