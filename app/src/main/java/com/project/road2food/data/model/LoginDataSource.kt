@@ -1,12 +1,13 @@
-package com.project.road2food.data
+package com.project.road2food.data.model
 
-import com.project.road2food.data.model.LoggedInUser
+
 import java.io.IOException
 
 /**
  * Class that handles authentication w/ login credentials and retrieves user information.
  */
 class LoginDataSource {
+
 
     fun login(username: String, password: String): Result<LoggedInUser> {
         try {

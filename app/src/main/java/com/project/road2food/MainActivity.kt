@@ -6,25 +6,23 @@ package com.project.road2food
 import android.Manifest
 import android.location.Location
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
-import com.google.android.gms.location.*
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import kotlinx.android.synthetic.main.account.*
+import com.project.road2food.data.AccountFragment
+import com.project.road2food.data.HomeFragment
+import com.project.road2food.data.OffersFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.mapview.*
-import kotlinx.android.synthetic.main.user_login.*
-import kotlinx.android.synthetic.main.user_login.registration
-import kotlinx.android.synthetic.main.user_registeration.*
-import org.osmdroid.config.Configuration.*
+import org.osmdroid.config.Configuration.getInstance
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.MapView
@@ -32,6 +30,7 @@ import org.osmdroid.views.overlay.*
 import com.google.zxing.BarcodeFormat
 import com.journeyapps.barcodescanner.BarcodeEncoder
 import kotlinx.android.synthetic.main.qr_code.*
+import org.osmdroid.views.overlay.Marker
 
 class MainActivity : AppCompatActivity() {
     private val REQUEST_PERMISSIONS_REQUEST_CODE = 1;
@@ -46,6 +45,10 @@ class MainActivity : AppCompatActivity() {
     // ---> Start of onCreate
     override fun onCreate(savedInstanceState: Bundle?) {
 
+        val home = HomeFragment()
+          val account = AccountFragment()
+        //  val maps = Map1Fragment()
+           val offers = OffersFragment()
 
         super.onCreate(savedInstanceState)
         getInstance().load(this, PreferenceManager.getDefaultSharedPreferences(this))
@@ -59,7 +62,7 @@ class MainActivity : AppCompatActivity() {
         val locationPermissionRequest = registerForActivityResult(
             ActivityResultContracts.RequestMultiplePermissions()
         ) {
-            permissions ->
+                permissions ->
             when {
                 permissions.getOrDefault(Manifest.permission.ACCESS_FINE_LOCATION, false) -> {
                     // Precise location granted
@@ -67,17 +70,17 @@ class MainActivity : AppCompatActivity() {
                 permissions.getOrDefault(Manifest.permission.ACCESS_COARSE_LOCATION, false) -> {
                     // Approx location granted
                 } else -> {
-                    // Permission denied
-                    println("Permission denied")
-                }
+                // Permission denied
+                println("Permission denied")
+            }
             }
         }
-            locationPermissionRequest.launch(
-                arrayOf(
-                    Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.ACCESS_COARSE_LOCATION
-                )
+        locationPermissionRequest.launch(
+            arrayOf(
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION
             )
+        )
         // <--- End of permission request
 
         // ---> Initialize map
@@ -119,15 +122,48 @@ class MainActivity : AppCompatActivity() {
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         fusedLocationClient.lastLocation.addOnSuccessListener {
-            location : Location ->
+                location : Location ->
             longitude = location.longitude
             latitude = location.latitude
             initMap()
         }
         fusedLocationClient.lastLocation.addOnFailureListener { println("Location not found") }
         // <--- End of map
-        val bottomNavigationView = supportFragmentManager
 
+        fun setCurrentFragment(fragment: Fragment) =
+            supportFragmentManager.beginTransaction().apply {
+                replace(R.id.fragment_container, fragment)
+                commit()
+            }
+
+        fun showHome(){
+            offers_layout.visibility= View.GONE
+            account_layout.visibility=View.GONE
+            home_layout.visibility=View.VISIBLE
+            mapview_layout.visibility=View.GONE
+            //setCurrentFragment(home)
+        }
+        fun showOffers(){
+            offers_layout.visibility= View.VISIBLE
+            account_layout.visibility=View.GONE
+            home_layout.visibility=View.GONE
+            mapview_layout.visibility=View.GONE
+        }
+        fun showAccount(){
+            offers_layout.visibility= View.GONE
+            account_layout.visibility=View.VISIBLE
+            home_layout.visibility=View.GONE
+            mapview_layout.visibility=View.GONE
+        }
+        fun showMap(){
+            offers_layout.visibility= View.GONE
+            account_layout.visibility=View.GONE
+            home_layout.visibility=View.GONE
+            mapview_layout.visibility=View.VISIBLE
+        }
+
+        val bottomNavigationView = supportFragmentManager
+/*
         registration.setOnClickListener{
             showRegistration()
         }
@@ -141,8 +177,20 @@ class MainActivity : AppCompatActivity() {
             //showAccount()
             showQr()
         }
+        }*/
 
-        val navView: BottomNavigationView = findViewById(R.id.bottom_navigation)
+        bottom_navigation.setOnItemSelectedListener {
+                   when (it.itemId) {
+                       R.id.nav_home -> showHome()
+                       R.id.nav_map -> showMap()
+                       R.id.nav_offers ->  showOffers()
+                       R.id.nav_account -> showAccount()
+                 }
+                true
+              }
+
+        /*val navView: BottomNavigationView = findViewById(R.id.bottom_navigation)
+
         navView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_home -> {
@@ -155,6 +203,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.nav_map -> {
                     Toast.makeText(this, "More selected", Toast.LENGTH_SHORT).show()
+                    showMap()
                     true
                 }
                 R.id.nav_offers -> {
@@ -163,7 +212,8 @@ class MainActivity : AppCompatActivity() {
                 }
                 else -> true
             }
-        }
+        }*/
+
     } // <--- End of onCreate
 
     override fun onResume() {
@@ -190,25 +240,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-private fun showRegistration(){
-    registration_layout.visibility= View.VISIBLE
-    login_layout.visibility=View.GONE
-}
-    private fun showLogIn(){
-        registration_layout.visibility= View.GONE
-        login_layout.visibility=View.VISIBLE
-    }
-    private fun showAccount(){
-        registration_layout.visibility= View.GONE
-        login_layout.visibility=View.GONE
-        account_layout.visibility=View.VISIBLE
-    }
-    private fun showMap(){
-        registration_layout.visibility= View.GONE
-        login_layout.visibility=View.GONE
-        account_layout.visibility=View.GONE
-        mapview_layout.visibility=View.VISIBLE
-    }
     private fun showQr(){
         val text = "QR code here"
         val encoder = BarcodeEncoder()
@@ -220,6 +251,3 @@ private fun showRegistration(){
         qr_code_layout.visibility=View.VISIBLE
     }
 }
-
-
-
