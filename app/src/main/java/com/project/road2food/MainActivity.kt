@@ -26,6 +26,10 @@ import org.osmdroid.config.Configuration.getInstance
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.MapView
+import org.osmdroid.views.overlay.*
+import com.google.zxing.BarcodeFormat
+import com.journeyapps.barcodescanner.BarcodeEncoder
+import kotlinx.android.synthetic.main.qr_code.*
 import org.osmdroid.views.overlay.Marker
 
 class MainActivity : AppCompatActivity() {
@@ -35,6 +39,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     var latitude: Double = 125.000
     var longitude: Double = 111.000
+
+
 
     // ---> Start of onCreate
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -167,8 +173,10 @@ class MainActivity : AppCompatActivity() {
         }
 
         login.setOnClickListener{
-            showMap()
+            //showMap()
             //showAccount()
+            showQr()
+        }
         }*/
 
         bottom_navigation.setOnItemSelectedListener {
@@ -182,6 +190,7 @@ class MainActivity : AppCompatActivity() {
               }
 
         /*val navView: BottomNavigationView = findViewById(R.id.bottom_navigation)
+
         navView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_home -> {
@@ -231,4 +240,14 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun showQr(){
+        val text = "QR code here"
+        val encoder = BarcodeEncoder()
+        val bitMap = encoder.encodeBitmap(text, BarcodeFormat.QR_CODE, 300, 300)
+        ivQRCode.setImageBitmap(bitMap)
+
+        registration_layout.visibility= View.GONE
+        login_layout.visibility=View.GONE
+        qr_code_layout.visibility=View.VISIBLE
+    }
 }
