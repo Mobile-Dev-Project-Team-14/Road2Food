@@ -24,6 +24,10 @@
         android:id="@+id/mapview_layout"
         layout="@layout/mapview"
         android:visibility="gone"/>
+    <include
+        android:id="@+id/qr_code_layout"
+        layout="@layout/qr_code"
+        android:visibility="gone"/>
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"

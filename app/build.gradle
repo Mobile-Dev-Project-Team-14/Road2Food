@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId "com.project.road2food"
-        minSdk 21
+        minSdk 24
         targetSdk 32
         versionCode 1
         versionName "1.0"
@@ -58,4 +58,5 @@ dependencies {
     implementation 'org.osmdroid:osmdroid-geopackage:6.1.10'
     implementation platform('com.google.firebase:firebase-bom:29.3.0')
     implementation 'com.google.firebase:firebase-firestore-ktx'
+    implementation 'com.journeyapps:zxing-android-embedded:4.1.0'
 }

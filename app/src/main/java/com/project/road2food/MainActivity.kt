@@ -29,6 +29,9 @@ import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.MapView
 import org.osmdroid.views.overlay.*
+import com.google.zxing.BarcodeFormat
+import com.journeyapps.barcodescanner.BarcodeEncoder
+import kotlinx.android.synthetic.main.qr_code.*
 
 class MainActivity : AppCompatActivity() {
     private val REQUEST_PERMISSIONS_REQUEST_CODE = 1;
@@ -38,8 +41,11 @@ class MainActivity : AppCompatActivity() {
     var latitude: Double = 125.000
     var longitude: Double = 111.000
 
+
+
     // ---> Start of onCreate
     override fun onCreate(savedInstanceState: Bundle?) {
+
 
         super.onCreate(savedInstanceState)
         getInstance().load(this, PreferenceManager.getDefaultSharedPreferences(this))
@@ -204,8 +210,14 @@ private fun showRegistration(){
         mapview_layout.visibility=View.VISIBLE
     }
     private fun showQr(){
+        val text = "QR code here"
+        val encoder = BarcodeEncoder()
+        val bitMap = encoder.encodeBitmap(text, BarcodeFormat.QR_CODE, 300, 300)
+        ivQRCode.setImageBitmap(bitMap)
+
         registration_layout.visibility= View.GONE
         login_layout.visibility=View.GONE
+        qr_code_layout.visibility=View.VISIBLE
     }
 }
 

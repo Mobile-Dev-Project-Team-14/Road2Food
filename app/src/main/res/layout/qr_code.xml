@@ -23,23 +23,12 @@
         android:id="@+id/tvScan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="75dp"
+        android:layout_marginTop="55dp"
         android:textColor="@color/white"
-        android:text="Scan when buying"
+        android:text="Scan when buying at"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvLogo" />
-
-    <TextView
-        android:id="@+id/tvOfferType"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:textColor="@color/white"
-        android:text="Lunch at"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvScan" />
 
     <TextView
         android:id="@+id/tvRestaurantName"
@@ -51,7 +40,7 @@
         android:text="Restaurant name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvOfferType" />
+        app:layout_constraintTop_toBottomOf="@+id/tvScan" />
 
     <ImageView
         android:id="@+id/ivQRCode"
