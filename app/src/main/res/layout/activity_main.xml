@@ -36,6 +36,10 @@
         android:id="@+id/offers_layout"
         layout="@layout/fragment_offers"
         android:visibility="gone"/>
+    <include
+        android:id="@+id/offers_page"
+        layout="@layout/offers"
+        android:visibility="gone"/>
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"

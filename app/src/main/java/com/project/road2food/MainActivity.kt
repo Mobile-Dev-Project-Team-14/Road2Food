@@ -161,6 +161,13 @@ class MainActivity : AppCompatActivity() {
             home_layout.visibility=View.GONE
             mapview_layout.visibility=View.VISIBLE
         }
+        fun showOffersPage(){
+            offers_page.visibility= View.VISIBLE
+            account_layout.visibility=View.GONE
+            home_layout.visibility=View.GONE
+            mapview_layout.visibility=View.GONE
+            offers_layout.visibility= View.GONE
+        }
 
         val bottomNavigationView = supportFragmentManager
 /*
@@ -183,7 +190,7 @@ class MainActivity : AppCompatActivity() {
                    when (it.itemId) {
                        R.id.nav_home -> showHome()
                        R.id.nav_map -> showMap()
-                       R.id.nav_offers ->  showOffers()
+                       R.id.nav_offers ->  showOffersPage()
                        R.id.nav_account -> showAccount()
                  }
                 true
