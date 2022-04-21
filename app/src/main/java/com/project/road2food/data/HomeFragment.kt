@@ -25,7 +25,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) { override fun onCreateVie
     val btnoffers = view.findViewById<Button>(R.id.btnoffers)
     val btnlogin = view.findViewById<Button>(R.id.btnlogin)
 
-    val button = view.findViewById<Button>(R.id.spinner)
+    val button = view.findViewById<Button>(R.id.dropDown)
 
     view.findViewById<Button>(R.id.btnmap)
     btnmap.setOnClickListener {

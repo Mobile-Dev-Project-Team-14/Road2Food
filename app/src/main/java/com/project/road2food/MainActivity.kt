@@ -8,11 +8,13 @@ import android.location.Location
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.PopupMenu
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.preference.PreferenceManager
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -30,9 +32,12 @@ import org.osmdroid.views.MapView
 import org.osmdroid.views.overlay.*
 import com.google.zxing.BarcodeFormat
 import com.journeyapps.barcodescanner.BarcodeEncoder
+import com.project.road2food.data.Lunch_Menu
+import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.offers.*
 import kotlinx.android.synthetic.main.qr_code.*
 import org.osmdroid.views.overlay.Marker
+import android.view.LayoutInflater
 
 class MainActivity : AppCompatActivity() {
     private val REQUEST_PERMISSIONS_REQUEST_CODE = 1;
@@ -241,6 +246,38 @@ class MainActivity : AppCompatActivity() {
             btnOffers.setTextColor(getColor(R.color.brightRed))
             btnActive.setTextColor(getColor(R.color.white))
             btnActive.setBackgroundResource(R.drawable.left_background)
+        }
+        btnmap.setOnClickListener {
+            bottom_navigation.selectedItemId = R.id.nav_map
+        }
+        btnoffers.setOnClickListener {
+            showOffers()
+        }
+
+        dropDown.setOnClickListener {
+
+            //val PopupMenu = findViewById<Button>(R.id.dropDown)
+            val popupMenu: PopupMenu = PopupMenu(this, dropDown)
+            popupMenu.menuInflater.inflate(R.menu.food_menu, popupMenu.menu)
+            popupMenu.show()
+            popupMenu.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item ->
+                when (item.itemId) {
+                    R.id.itdinner -> {
+                        val lunchmenu = Lunch_Menu()
+
+                    }
+                    R.id.itlunch -> {
+
+
+                    }
+                    R.id.itbreakfast -> {
+                        re
+
+                    }
+                }
+                true
+            })
+            //showMap()
         }
 
 
