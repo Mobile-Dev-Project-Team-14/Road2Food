@@ -1,5 +1,6 @@
 package com.project.road2food
 
+
 //import androidx.appcompat.app.AppCompatActivity
 //import com.google.android.material.navigation.NavigationBarView
 
@@ -9,6 +10,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.PopupMenu
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -18,6 +20,7 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.preference.PreferenceManager
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.project.road2food.data.AccountFragment
@@ -36,6 +39,8 @@ import com.project.road2food.data.Lunch_Menu
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.offers.*
 import kotlinx.android.synthetic.main.qr_code.*
+import kotlinx.android.synthetic.main.user_login.*
+import kotlinx.android.synthetic.main.user_registeration.*
 import org.osmdroid.views.overlay.Marker
 import android.view.LayoutInflater
 
@@ -47,18 +52,14 @@ class MainActivity : AppCompatActivity() {
     var latitude: Double = 125.000
     var longitude: Double = 111.000
 
+    private lateinit var auth: FirebaseAuth
+  
+
+
 
 
     // ---> Start of onCreate
     override fun onCreate(savedInstanceState: Bundle?) {
-
-        /*
-        val home = HomeFragment()
-        val account = AccountFragment()
-        val maps = Map1Fragment()
-        val offers = OffersFragment()
-        */
-
 
         super.onCreate(savedInstanceState)
         getInstance().load(this, PreferenceManager.getDefaultSharedPreferences(this))
@@ -163,7 +164,7 @@ class MainActivity : AppCompatActivity() {
         }
         fun showAccount(){
             offers_layout.visibility= View.GONE
-            account_layout.visibility=View.VISIBLE
+            account_layout.visibility=View.GONE
             home_layout.visibility=View.GONE
             mapview_layout.visibility=View.GONE
             offers_page.visibility= View.GONE
@@ -182,58 +183,88 @@ class MainActivity : AppCompatActivity() {
             mapview_layout.visibility=View.GONE
             offers_layout.visibility= View.GONE
         }
+        fun showLogIn() {
+            registration_layout.visibility = View.GONE
+            login_layout.visibility = View.VISIBLE
+            offers_layout.visibility= View.GONE
+            account_layout.visibility=View.GONE
+            home_layout.visibility=View.GONE
+            mapview_layout.visibility=View.GONE
+
+        }
+
+        fun showRegistration() {
+            registration_layout.visibility = View.VISIBLE
+            login_layout.visibility = View.GONE
+            offers_layout.visibility= View.GONE
+            account_layout.visibility=View.GONE
+            home_layout.visibility=View.GONE
+            mapview_layout.visibility=View.GONE
+            //else -> true
+        }
 
         val bottomNavigationView = supportFragmentManager
-/*
+
         registration.setOnClickListener{
             showRegistration()
         }
 
-        log.setOnClickListener{
-            showLogIn()
-        }
+        auth = FirebaseAuth.getInstance()
 
-        login.setOnClickListener{
-            //showMap()
-            //showAccount()
-            showQr()
+
+/* function for registration button*/
+        registration_btn.setOnClickListener {
+            val email = login_email.text.toString().trim()
+            val password = login_password.text.toString().trim()
+
+            if (email.isNotEmpty() || password.isNotEmpty()) {
+
+                auth.createUserWithEmailAndPassword(email, password)
+                Toast.makeText(this, "account created sucessfully!!", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "fill every field", Toast.LENGTH_SHORT).show()
+            }
         }
-        }*/
+/*login button function to login*/
+        login_btn.setOnClickListener {
+            val email = user_email.text.toString().trim()
+            val password = user_password.text.toString().trim()
+
+            if (email.isNotEmpty() || password.isNotEmpty()) {
+                auth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this) { task ->
+                        if (task.isSuccessful) {
+                            Toast.makeText(this, "Login sucessful", Toast.LENGTH_SHORT).show()
+                        } else {
+                            Toast.makeText(this, "wrong id or password!!", Toast.LENGTH_SHORT)
+                                .show()
+                        }
+
+
+                    }
+
+            }
+        }
 
         bottom_navigation.setOnItemSelectedListener {
                    when (it.itemId) {
                        R.id.nav_home -> showHome()
                        R.id.nav_map -> showMap()
-                       R.id.nav_offers ->  showOffersPage()
-                       R.id.nav_account -> showAccount()
+                       R.id.nav_offers ->  showOffersPage() 
+                       R.id.nav_account -> showLogIn()
                  }
                 true
               }
 
-        /*val navView: BottomNavigationView = findViewById(R.id.bottom_navigation)
 
-        navView.setOnNavigationItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.nav_home -> {
-                    Toast.makeText(this, "Home selected", Toast.LENGTH_SHORT).show()
-                    true
-                }
-                R.id.nav_account -> {
-                    Toast.makeText(this, "Photos selected", Toast.LENGTH_SHORT).show()
-                    true
-                }
-                R.id.nav_map -> {
-                    Toast.makeText(this, "More selected", Toast.LENGTH_SHORT).show()
-                    showMap()
-                    true
-                }
-                R.id.nav_offers -> {
-                    Toast.makeText(this, "More selected", Toast.LENGTH_SHORT).show()
-                    true
-                }
-                else -> true
-            }
-        }*/
+
+
+                log.setOnClickListener {
+                    showLogIn()
+              }
+
+
+
 
         btnOffers.setOnClickListener {
             btnOffers.setBackgroundResource(R.drawable.right_background_red)

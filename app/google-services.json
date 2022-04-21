@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "557229120124-d81ev587mma7enkmdeq0ef3cgvr7sn59.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.project.road2food",
+            "certificate_hash": "f28f86a5334b3574436a2b1fd14940a62ddf29c1"
+          }
+        },
+        {
           "client_id": "557229120124-d1jtvdulu2gnbntgusa643leuj2r8c36.apps.googleusercontent.com",
           "client_type": 3
         }
