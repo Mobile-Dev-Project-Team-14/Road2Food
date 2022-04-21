@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:tools="http://schemas.android.com/tools" xmlns:android="http://schemas.android.com/apk/res/android">
+ <solid android:color="@color/colorPrimaryVariant" tools:ignore="StateListReachable" />
+
+<item android:drawable="@color/colorOnPrimary">
+ <gradient android:startColor="#55E46C"
+     android:centerColor="#D4D9EC"
+     android:endColor="#DF6955"
+     android:angle="90"/>
+</item>
+</selector>
