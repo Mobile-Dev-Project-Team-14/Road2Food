@@ -302,7 +302,6 @@ class MainActivity : AppCompatActivity() {
 
                     }
                     R.id.itbreakfast -> {
-                        re
 
                     }
                 }
