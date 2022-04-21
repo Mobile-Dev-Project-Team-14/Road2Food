@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
     var latitude: Double = 125.000
     var longitude: Double = 111.000
   
-  private lateinit var auth: FirebaseAuth
+  //private lateinit var auth: FirebaseAuth
 
 
 
@@ -231,23 +231,6 @@ class MainActivity : AppCompatActivity() {
 
         /*val navView: BottomNavigationView = findViewById(R.id.bottom_navigation)
 
-<<<<<<< HEAD
-=======
-        navView.setOnNavigationItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.nav_home -> {
-                    Toast.makeText(this, "Home selected", Toast.LENGTH_SHORT).show()
-                    true
-                }
-                R.id.nav_account -> {
-                    Toast.makeText(this, "Photos selected", Toast.LENGTH_SHORT).show()
-                    true
-                }
-                R.id.nav_map -> {
-                    Toast.makeText(this, "More selected", Toast.LENGTH_SHORT).show()
-                    showMap()
-                    true
-                }
 
                 log.setOnClickListener {
                     showLogIn()
@@ -265,7 +248,6 @@ class MainActivity : AppCompatActivity() {
             }
         }*/
 
->>>>>>> 37068cac184f13e3ba6f9692f5a36e75f5a6e452
     } // <--- End of onCreate
 
     override fun onResume() {
