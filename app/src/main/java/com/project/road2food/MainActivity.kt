@@ -7,6 +7,7 @@ package com.project.road2food
 import android.Manifest
 import android.location.Location
 import android.os.Bundle
+import android.os.Handler
 import android.view.View
 import android.widget.Button
 import android.widget.PopupMenu
@@ -43,6 +44,11 @@ import kotlinx.android.synthetic.main.user_login.*
 import kotlinx.android.synthetic.main.user_registeration.*
 import org.osmdroid.views.overlay.Marker
 import android.view.LayoutInflater
+import android.widget.RelativeLayout
+import kotlinx.android.synthetic.main.fragment_home.view.*
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.concurrent.schedule
 
 class MainActivity : AppCompatActivity() {
     private val REQUEST_PERMISSIONS_REQUEST_CODE = 1;
@@ -153,7 +159,6 @@ class MainActivity : AppCompatActivity() {
             home_layout.visibility=View.VISIBLE
             mapview_layout.visibility=View.GONE
             offers_page.visibility= View.GONE
-            //setCurrentFragment(home)
         }
         fun showOffers(){
             offers_layout.visibility= View.VISIBLE
@@ -164,10 +169,11 @@ class MainActivity : AppCompatActivity() {
         }
         fun showAccount(){
             offers_layout.visibility= View.GONE
-            account_layout.visibility=View.GONE
+            account_layout.visibility=View.VISIBLE
             home_layout.visibility=View.GONE
             mapview_layout.visibility=View.GONE
             offers_page.visibility= View.GONE
+            login_layout.visibility=View.GONE
         }
         fun showMap(){
             offers_layout.visibility= View.GONE
@@ -184,13 +190,13 @@ class MainActivity : AppCompatActivity() {
             offers_layout.visibility= View.GONE
         }
         fun showLogIn() {
+            offers_page.visibility=View.GONE
             registration_layout.visibility = View.GONE
-            login_layout.visibility = View.VISIBLE
             offers_layout.visibility= View.GONE
             account_layout.visibility=View.GONE
             home_layout.visibility=View.GONE
             mapview_layout.visibility=View.GONE
-
+            login_layout.visibility = View.VISIBLE
         }
 
         fun showRegistration() {
@@ -235,6 +241,9 @@ class MainActivity : AppCompatActivity() {
                     .addOnCompleteListener(this) { task ->
                         if (task.isSuccessful) {
                             Toast.makeText(this, "Login sucessful", Toast.LENGTH_SHORT).show()
+                            Handler().postDelayed({
+                                showAccount()
+                            }, 2000)
                         } else {
                             Toast.makeText(this, "wrong id or password!!", Toast.LENGTH_SHORT)
                                 .show()
@@ -255,10 +264,6 @@ class MainActivity : AppCompatActivity() {
                  }
                 true
               }
-
-
-
-
                 log.setOnClickListener {
                     showLogIn()
               }
@@ -294,11 +299,9 @@ class MainActivity : AppCompatActivity() {
             popupMenu.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item ->
                 when (item.itemId) {
                     R.id.itdinner -> {
-                        val lunchmenu = Lunch_Menu()
 
                     }
                     R.id.itlunch -> {
-
 
                     }
                     R.id.itbreakfast -> {
@@ -307,7 +310,6 @@ class MainActivity : AppCompatActivity() {
                 }
                 true
             })
-            //showMap()
         }
 
 

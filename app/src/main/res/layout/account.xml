@@ -51,7 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="57dp"
         android:layout_marginRight="20dp"
-        android:background="@drawable/account_buttons"
+        android:background="@color/red"
         android:text="Available offers"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"

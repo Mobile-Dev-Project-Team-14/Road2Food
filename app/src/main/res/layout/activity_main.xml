@@ -18,7 +18,7 @@
         android:visibility="gone"/>
     <include
         android:id="@+id/account_layout"
-        layout="@layout/fragment_account"
+        layout="@layout/account"
         android:visibility="gone"/>
     <include
         android:id="@+id/mapview_layout"
