@@ -31,7 +31,11 @@
                 android:textSize="24sp" />
 
             <Button
+<<<<<<< HEAD
                 android:id="@+id/dropDown"
+=======
+                android:id="@+id/spinner"
+>>>>>>> 37068cac184f13e3ba6f9692f5a36e75f5a6e452
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"

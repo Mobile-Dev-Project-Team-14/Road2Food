@@ -11,18 +11,30 @@
         layout="@layout/user_login"
         android:layout_width="match_parent"
         android:layout_height="653dp"
-        android:visibility="visible" />
+        android:visibility="gone" />
     <include
         android:id="@+id/registration_layout"
         layout="@layout/user_registeration"
         android:visibility="gone"/>
     <include
         android:id="@+id/account_layout"
-        layout="@layout/account"
+        layout="@layout/fragment_account"
         android:visibility="gone"/>
     <include
         android:id="@+id/mapview_layout"
         layout="@layout/mapview"
+        android:visibility="gone"/>
+    <include
+        android:id="@+id/qr_code_layout"
+        layout="@layout/qr_code"
+        android:visibility="gone"/>
+    <include
+        android:id="@+id/home_layout"
+        layout="@layout/fragment_home"
+        android:visibility="visible"/>
+    <include
+        android:id="@+id/offers_layout"
+        layout="@layout/fragment_offers"
         android:visibility="gone"/>
     <FrameLayout
         android:id="@+id/fragment_container"
