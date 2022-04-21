@@ -7,6 +7,7 @@ import android.Manifest
 import android.location.Location
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -29,6 +30,7 @@ import org.osmdroid.views.MapView
 import org.osmdroid.views.overlay.*
 import com.google.zxing.BarcodeFormat
 import com.journeyapps.barcodescanner.BarcodeEncoder
+import kotlinx.android.synthetic.main.offers.*
 import kotlinx.android.synthetic.main.qr_code.*
 import org.osmdroid.views.overlay.Marker
 
@@ -45,10 +47,13 @@ class MainActivity : AppCompatActivity() {
     // ---> Start of onCreate
     override fun onCreate(savedInstanceState: Bundle?) {
 
+        /*
         val home = HomeFragment()
-          val account = AccountFragment()
-        //  val maps = Map1Fragment()
-           val offers = OffersFragment()
+        val account = AccountFragment()
+        val maps = Map1Fragment()
+        val offers = OffersFragment()
+        */
+
 
         super.onCreate(savedInstanceState)
         getInstance().load(this, PreferenceManager.getDefaultSharedPreferences(this))
@@ -141,6 +146,7 @@ class MainActivity : AppCompatActivity() {
             account_layout.visibility=View.GONE
             home_layout.visibility=View.VISIBLE
             mapview_layout.visibility=View.GONE
+            offers_page.visibility= View.GONE
             //setCurrentFragment(home)
         }
         fun showOffers(){
@@ -148,18 +154,21 @@ class MainActivity : AppCompatActivity() {
             account_layout.visibility=View.GONE
             home_layout.visibility=View.GONE
             mapview_layout.visibility=View.GONE
+            offers_page.visibility= View.GONE
         }
         fun showAccount(){
             offers_layout.visibility= View.GONE
             account_layout.visibility=View.VISIBLE
             home_layout.visibility=View.GONE
             mapview_layout.visibility=View.GONE
+            offers_page.visibility= View.GONE
         }
         fun showMap(){
             offers_layout.visibility= View.GONE
             account_layout.visibility=View.GONE
             home_layout.visibility=View.GONE
             mapview_layout.visibility=View.VISIBLE
+            offers_page.visibility= View.GONE
         }
         fun showOffersPage(){
             offers_page.visibility= View.VISIBLE
@@ -221,6 +230,20 @@ class MainActivity : AppCompatActivity() {
             }
         }*/
 
+        btnOffers.setOnClickListener {
+            btnOffers.setBackgroundResource(R.drawable.right_background_red)
+            btnOffers.setTextColor(getColor(R.color.white))
+            btnActive.setTextColor(getColor(R.color.brightRed))
+            btnActive.setBackgroundResource(R.drawable.left_background_white)
+        }
+        btnActive.setOnClickListener {
+            btnOffers.setBackgroundResource(R.drawable.right_background)
+            btnOffers.setTextColor(getColor(R.color.brightRed))
+            btnActive.setTextColor(getColor(R.color.white))
+            btnActive.setBackgroundResource(R.drawable.left_background)
+        }
+
+
     } // <--- End of onCreate
 
     override fun onResume() {
@@ -256,5 +279,15 @@ class MainActivity : AppCompatActivity() {
         registration_layout.visibility= View.GONE
         login_layout.visibility=View.GONE
         qr_code_layout.visibility=View.VISIBLE
+        offers_page.visibility= View.GONE
+    }
+
+
+    private fun showActive(){
+
+    }
+
+    private fun showFindOffers() {
+
     }
 }
