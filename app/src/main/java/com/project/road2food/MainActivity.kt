@@ -8,12 +8,15 @@ import android.Manifest
 import android.location.Location
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
+import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.preference.PreferenceManager
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -32,10 +35,14 @@ import org.osmdroid.views.MapView
 import org.osmdroid.views.overlay.*
 import com.google.zxing.BarcodeFormat
 import com.journeyapps.barcodescanner.BarcodeEncoder
+import com.project.road2food.data.Lunch_Menu
+import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.offers.*
 import kotlinx.android.synthetic.main.qr_code.*
 import kotlinx.android.synthetic.main.user_login.*
 import kotlinx.android.synthetic.main.user_registeration.*
 import org.osmdroid.views.overlay.Marker
+import android.view.LayoutInflater
 
 class MainActivity : AppCompatActivity() {
     private val REQUEST_PERMISSIONS_REQUEST_CODE = 1;
@@ -53,7 +60,6 @@ class MainActivity : AppCompatActivity() {
 
     // ---> Start of onCreate
     override fun onCreate(savedInstanceState: Bundle?) {
-
 
         super.onCreate(savedInstanceState)
         getInstance().load(this, PreferenceManager.getDefaultSharedPreferences(this))
@@ -146,6 +152,7 @@ class MainActivity : AppCompatActivity() {
             account_layout.visibility=View.GONE
             home_layout.visibility=View.VISIBLE
             mapview_layout.visibility=View.GONE
+            offers_page.visibility= View.GONE
             //setCurrentFragment(home)
         }
         fun showOffers(){
@@ -153,18 +160,28 @@ class MainActivity : AppCompatActivity() {
             account_layout.visibility=View.GONE
             home_layout.visibility=View.GONE
             mapview_layout.visibility=View.GONE
+            offers_page.visibility= View.GONE
         }
         fun showAccount(){
             offers_layout.visibility= View.GONE
             account_layout.visibility=View.GONE
             home_layout.visibility=View.GONE
             mapview_layout.visibility=View.GONE
+            offers_page.visibility= View.GONE
         }
         fun showMap(){
             offers_layout.visibility= View.GONE
             account_layout.visibility=View.GONE
             home_layout.visibility=View.GONE
             mapview_layout.visibility=View.VISIBLE
+            offers_page.visibility= View.GONE
+        }
+        fun showOffersPage(){
+            offers_page.visibility= View.VISIBLE
+            account_layout.visibility=View.GONE
+            home_layout.visibility=View.GONE
+            mapview_layout.visibility=View.GONE
+            offers_layout.visibility= View.GONE
         }
         fun showLogIn() {
             registration_layout.visibility = View.GONE
@@ -233,7 +250,7 @@ class MainActivity : AppCompatActivity() {
                    when (it.itemId) {
                        R.id.nav_home -> showHome()
                        R.id.nav_map -> showMap()
-                       R.id.nav_offers ->  showOffers()
+                       R.id.nav_offers ->  showOffersPage() 
                        R.id.nav_account -> showLogIn()
                  }
                 true
@@ -247,6 +264,52 @@ class MainActivity : AppCompatActivity() {
               }
 
 
+
+
+        btnOffers.setOnClickListener {
+            btnOffers.setBackgroundResource(R.drawable.right_background_red)
+            btnOffers.setTextColor(getColor(R.color.white))
+            btnActive.setTextColor(getColor(R.color.brightRed))
+            btnActive.setBackgroundResource(R.drawable.left_background_white)
+        }
+        btnActive.setOnClickListener {
+            btnOffers.setBackgroundResource(R.drawable.right_background)
+            btnOffers.setTextColor(getColor(R.color.brightRed))
+            btnActive.setTextColor(getColor(R.color.white))
+            btnActive.setBackgroundResource(R.drawable.left_background)
+        }
+        btnmap.setOnClickListener {
+            bottom_navigation.selectedItemId = R.id.nav_map
+        }
+        btnoffers.setOnClickListener {
+            showOffers()
+        }
+
+        dropDown.setOnClickListener {
+
+            //val PopupMenu = findViewById<Button>(R.id.dropDown)
+            val popupMenu: PopupMenu = PopupMenu(this, dropDown)
+            popupMenu.menuInflater.inflate(R.menu.food_menu, popupMenu.menu)
+            popupMenu.show()
+            popupMenu.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item ->
+                when (item.itemId) {
+                    R.id.itdinner -> {
+                        val lunchmenu = Lunch_Menu()
+
+                    }
+                    R.id.itlunch -> {
+
+
+                    }
+                    R.id.itbreakfast -> {
+                        re
+
+                    }
+                }
+                true
+            })
+            //showMap()
+        }
 
 
     } // <--- End of onCreate
@@ -284,5 +347,15 @@ class MainActivity : AppCompatActivity() {
         registration_layout.visibility= View.GONE
         login_layout.visibility=View.GONE
         qr_code_layout.visibility=View.VISIBLE
+        offers_page.visibility= View.GONE
+    }
+
+
+    private fun showActive(){
+
+    }
+
+    private fun showFindOffers() {
+
     }
 }

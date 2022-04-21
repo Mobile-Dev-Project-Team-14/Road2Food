@@ -9,6 +9,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="red">#DB2F2F</color>
     <color name="blue">#0000ff</color>
+    <color name="brightRed">#F01111</color>
 
     <color name="colorPrimary">	#FF0000</color>
     <color name="colorPrimaryDark">#FF6200EE</color>
