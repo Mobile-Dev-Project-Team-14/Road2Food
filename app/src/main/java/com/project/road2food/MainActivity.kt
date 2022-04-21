@@ -135,28 +135,6 @@ class MainActivity : AppCompatActivity() {
             //showAccount()
         }
 
-        val navView: BottomNavigationView = findViewById(R.id.bottom_navigation)
-        navView.setOnNavigationItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.nav_home -> {
-                    Toast.makeText(this, "Home selected", Toast.LENGTH_SHORT).show()
-                    true
-                }
-                R.id.nav_account -> {
-                    Toast.makeText(this, "Photos selected", Toast.LENGTH_SHORT).show()
-                    true
-                }
-                R.id.nav_map -> {
-                    Toast.makeText(this, "More selected", Toast.LENGTH_SHORT).show()
-                    true
-                }
-                R.id.nav_offers -> {
-                    Toast.makeText(this, "More selected", Toast.LENGTH_SHORT).show()
-                    true
-                }
-                else -> true
-            }
-        }
     } // <--- End of onCreate
 
     override fun onResume() {
