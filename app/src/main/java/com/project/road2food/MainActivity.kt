@@ -31,6 +31,7 @@ import org.osmdroid.views.overlay.*
 import com.google.zxing.BarcodeFormat
 import com.journeyapps.barcodescanner.BarcodeEncoder
 import kotlinx.android.synthetic.main.qr_code.*
+import kotlinx.android.synthetic.main.user_registeration.*
 import org.osmdroid.views.overlay.Marker
 
 class MainActivity : AppCompatActivity() {
@@ -48,10 +49,6 @@ class MainActivity : AppCompatActivity() {
     // ---> Start of onCreate
     override fun onCreate(savedInstanceState: Bundle?) {
 
-        val home = HomeFragment()
-          val account = AccountFragment()
-        //  val maps = Map1Fragment()
-           val offers = OffersFragment()
 
         super.onCreate(savedInstanceState)
         getInstance().load(this, PreferenceManager.getDefaultSharedPreferences(this))
@@ -154,7 +151,7 @@ class MainActivity : AppCompatActivity() {
         }
         fun showAccount(){
             offers_layout.visibility= View.GONE
-            account_layout.visibility=View.VISIBLE
+            account_layout.visibility=View.GONE
             home_layout.visibility=View.GONE
             mapview_layout.visibility=View.GONE
         }
@@ -163,6 +160,25 @@ class MainActivity : AppCompatActivity() {
             account_layout.visibility=View.GONE
             home_layout.visibility=View.GONE
             mapview_layout.visibility=View.VISIBLE
+        }
+        fun showLogIn() {
+            registration_layout.visibility = View.GONE
+            login_layout.visibility = View.VISIBLE
+            offers_layout.visibility= View.GONE
+            account_layout.visibility=View.GONE
+            home_layout.visibility=View.GONE
+            mapview_layout.visibility=View.GONE
+
+        }
+
+        fun showRegistration() {
+            registration_layout.visibility = View.VISIBLE
+            login_layout.visibility = View.GONE
+            offers_layout.visibility= View.GONE
+            account_layout.visibility=View.GONE
+            home_layout.visibility=View.GONE
+            mapview_layout.visibility=View.GONE
+            //else -> true
         }
 
         val bottomNavigationView = supportFragmentManager
@@ -219,34 +235,26 @@ class MainActivity : AppCompatActivity() {
         }
         }*/
 
+
         bottom_navigation.setOnItemSelectedListener {
                    when (it.itemId) {
                        R.id.nav_home -> showHome()
                        R.id.nav_map -> showMap()
                        R.id.nav_offers ->  showOffers()
-                       R.id.nav_account -> showAccount()
+                       R.id.nav_account -> showLogIn()
                  }
                 true
               }
 
-        /*val navView: BottomNavigationView = findViewById(R.id.bottom_navigation)
+
 
 
                 log.setOnClickListener {
                     showLogIn()
               }
 
-    private fun showLogIn() {
-        registration_layout.visibility = View.GONE
-        login_layout.visibility = View.VISIBLE
-    }
 
-    private fun showRegistration() {
-        registration_layout.visibility = View.VISIBLE
-        login_layout.visibility = View.GONE
-                else -> true
-            }
-        }*/
+
 
     } // <--- End of onCreate
 
