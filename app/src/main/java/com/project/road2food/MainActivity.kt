@@ -8,6 +8,7 @@ import android.Manifest
 import android.location.Location
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -16,6 +17,7 @@ import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.project.road2food.data.AccountFragment
@@ -31,6 +33,7 @@ import org.osmdroid.views.overlay.*
 import com.google.zxing.BarcodeFormat
 import com.journeyapps.barcodescanner.BarcodeEncoder
 import kotlinx.android.synthetic.main.qr_code.*
+import kotlinx.android.synthetic.main.user_login.*
 import kotlinx.android.synthetic.main.user_registeration.*
 import org.osmdroid.views.overlay.Marker
 
@@ -41,8 +44,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     var latitude: Double = 125.000
     var longitude: Double = 111.000
+
+    private lateinit var auth: FirebaseAuth
   
-  //private lateinit var auth: FirebaseAuth
+
 
 
 
@@ -182,7 +187,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         val bottomNavigationView = supportFragmentManager
-/*
+
         registration.setOnClickListener{
             showRegistration()
         }
@@ -221,20 +226,8 @@ class MainActivity : AppCompatActivity() {
 
                     }
 
-
-
-
-                supportFragmentManager
-
-                registration.setOnClickListener {
-                    showRegistration()
-        login.setOnClickListener{
-            //showMap()
-            //showAccount()
-            showQr()
+            }
         }
-        }*/
-
 
         bottom_navigation.setOnItemSelectedListener {
                    when (it.itemId) {

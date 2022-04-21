@@ -65,4 +65,5 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:29.3.0')
     implementation 'com.google.firebase:firebase-firestore-ktx'
     implementation 'com.journeyapps:zxing-android-embedded:4.1.0'
+    implementation 'com.google.firebase:firebase-auth-ktx'
 }
