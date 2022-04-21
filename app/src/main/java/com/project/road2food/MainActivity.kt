@@ -1,5 +1,6 @@
 package com.project.road2food
 
+
 //import androidx.appcompat.app.AppCompatActivity
 //import com.google.android.material.navigation.NavigationBarView
 
@@ -39,6 +40,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     var latitude: Double = 125.000
     var longitude: Double = 111.000
+  
+  private lateinit var auth: FirebaseAuth
 
 
 
@@ -168,10 +171,47 @@ class MainActivity : AppCompatActivity() {
             showRegistration()
         }
 
-        log.setOnClickListener{
-            showLogIn()
-        }
+        auth = FirebaseAuth.getInstance()
 
+
+/* function for registration button*/
+        registration_btn.setOnClickListener {
+            val email = login_email.text.toString().trim()
+            val password = login_password.text.toString().trim()
+
+            if (email.isNotEmpty() || password.isNotEmpty()) {
+
+                auth.createUserWithEmailAndPassword(email, password)
+                Toast.makeText(this, "account created sucessfully!!", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "fill every field", Toast.LENGTH_SHORT).show()
+            }
+        }
+/*login button function to login*/
+        login_btn.setOnClickListener {
+            val email = user_email.text.toString().trim()
+            val password = user_password.text.toString().trim()
+
+            if (email.isNotEmpty() || password.isNotEmpty()) {
+                auth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this) { task ->
+                        if (task.isSuccessful) {
+                            Toast.makeText(this, "Login sucessful", Toast.LENGTH_SHORT).show()
+                        } else {
+                            Toast.makeText(this, "wrong id or password!!", Toast.LENGTH_SHORT)
+                                .show()
+                        }
+
+
+                    }
+
+
+
+
+                supportFragmentManager
+
+                registration.setOnClickListener {
+                    showRegistration()
         login.setOnClickListener{
             //showMap()
             //showAccount()
@@ -206,10 +246,19 @@ class MainActivity : AppCompatActivity() {
                     showMap()
                     true
                 }
-                R.id.nav_offers -> {
-                    Toast.makeText(this, "More selected", Toast.LENGTH_SHORT).show()
-                    true
-                }
+
+                log.setOnClickListener {
+                    showLogIn()
+              }
+
+    private fun showLogIn() {
+        registration_layout.visibility = View.GONE
+        login_layout.visibility = View.VISIBLE
+    }
+
+    private fun showRegistration() {
+        registration_layout.visibility = View.VISIBLE
+        login_layout.visibility = View.GONE
                 else -> true
             }
         }*/
