@@ -3,6 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Kotlin/Road2Food/app/src/main/res/layout/account.xml" value="0.2109375" />
+        <entry key="..\:/Kotlin/Road2Food/app/src/main/res/layout/activity_main.xml" value="0.16" />
+        <entry key="..\:/Kotlin/Road2Food/app/src/main/res/layout/fragment_account.xml" value="0.2109375" />
+        <entry key="..\:/Kotlin/Road2Food/app/src/main/res/layout/fragment_home.xml" value="0.2" />
+        <entry key="..\:/Kotlin/Road2Food/app/src/main/res/layout/fragment_map1.xml" value="0.10258358662613981" />
+        <entry key="..\:/Kotlin/Road2Food/app/src/main/res/layout/fragment_offers.xml" value="0.2" />
         <entry key="..\:/Users/Sane/Documents/GitHub/Road2Food/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
         <entry key="..\:/Users/Sane/Documents/GitHub/Road2Food/app/src/main/res/drawable/account_buttons.xml" value="0.27" />
         <entry key="..\:/Users/Sane/Documents/GitHub/Road2Food/app/src/main/res/drawable/filter_button.xml" value="0.1155" />

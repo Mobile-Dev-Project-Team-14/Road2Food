@@ -20,20 +20,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/road2"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_marginStart="100dp"
-            android:layout_centerInParent="true"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:clickable="true"
-            android:src="@drawable/logo1trns"
-            android:visibility="visible"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/arrow_account_back"
-            android:focusable="true" />
+    <ImageView
+        android:id="@+id/road2"
+        android:layout_width="150dp"
+        android:layout_height="0dp"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="101dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/logo1trns"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/textView8"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <TextView
@@ -57,14 +59,16 @@
         android:layout_width="200sp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
+        android:layout_marginBottom="453dp"
         android:gravity="center"
         android:text="Email"
         android:textColor="@color/white"
         android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_acc" />
+        app:layout_constraintTop_toBottomOf="@+id/road2" />
 
     <EditText
         android:id="@+id/user_email"

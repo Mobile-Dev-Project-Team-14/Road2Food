@@ -59,10 +59,6 @@ class MainActivity : AppCompatActivity() {
     var longitude: Double = 111.000
 
     private lateinit var auth: FirebaseAuth
-  
-
-
-
 
     // ---> Start of onCreate
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -248,10 +244,7 @@ class MainActivity : AppCompatActivity() {
                             Toast.makeText(this, "wrong id or password!!", Toast.LENGTH_SHORT)
                                 .show()
                         }
-
-
                     }
-
             }
         }
 
@@ -267,9 +260,6 @@ class MainActivity : AppCompatActivity() {
                 log.setOnClickListener {
                     showLogIn()
               }
-
-
-
 
         btnOffers.setOnClickListener {
             btnOffers.setBackgroundResource(R.drawable.right_background_red)
@@ -312,7 +302,6 @@ class MainActivity : AppCompatActivity() {
             })
         }
 
-
     } // <--- End of onCreate
 
     override fun onResume() {
@@ -350,7 +339,6 @@ class MainActivity : AppCompatActivity() {
         qr_code_layout.visibility=View.VISIBLE
         offers_page.visibility= View.GONE
     }
-
 
     private fun showActive(){
 
