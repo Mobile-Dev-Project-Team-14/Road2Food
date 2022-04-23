@@ -6,6 +6,7 @@ package com.project.road2food
 
 import android.Manifest
 import android.location.Location
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
@@ -45,7 +46,14 @@ import kotlinx.android.synthetic.main.user_registeration.*
 import org.osmdroid.views.overlay.Marker
 import android.view.LayoutInflater
 import android.widget.RelativeLayout
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.gms.tasks.Task
+import com.google.firebase.firestore.QuerySnapshot
+import kotlinx.android.synthetic.main.fragment_home.btnmap
+import kotlinx.android.synthetic.main.fragment_home.btnoffers
 import kotlinx.android.synthetic.main.fragment_home.view.*
+import kotlinx.android.synthetic.main.lunchmenu.*
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.concurrent.schedule
@@ -63,9 +71,31 @@ class MainActivity : AppCompatActivity() {
     // ---> Start of onCreate
     override fun onCreate(savedInstanceState: Bundle?) {
 
+        val list = ArrayList<OfferItem>()
+        val activeList = ArrayList<OfferItem>()
+        val restaurants: MutableList<String> = ArrayList()
+
+        Firebase.firestore.collection("restaurants").get().addOnSuccessListener {
+            for (document in it) {
+                val restaurantName = document.get("name").toString()
+                restaurants.add(document.id)
+                Firebase.firestore.collection("restaurants").document(document.id)
+                    .collection("offers").document("offer_1").get().addOnSuccessListener {
+                        val offer_desc = it.get("description").toString()
+                        val item = OfferItem(restaurantName, offer_desc)
+                        list+=item
+                    }
+                Firebase.firestore.collection("restaurants").document(document.id)
+                    .collection("offers").document("offer_2").get().addOnSuccessListener {
+                        val offer_desc = it.get("description").toString()
+                        val item = OfferItem(restaurantName, offer_desc)
+                        list+=item
+                    }
+            }
+        }
+
         super.onCreate(savedInstanceState)
         getInstance().load(this, PreferenceManager.getDefaultSharedPreferences(this))
-
         setContentView(R.layout.activity_main)
 
         map = findViewById<MapView>(R.id.mapView)
@@ -213,7 +243,6 @@ class MainActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
 
-
 /* function for registration button*/
         registration_btn.setOnClickListener {
             val email = login_email.text.toString().trim()
@@ -239,7 +268,7 @@ class MainActivity : AppCompatActivity() {
                             Toast.makeText(this, "Login sucessful", Toast.LENGTH_SHORT).show()
                             Handler().postDelayed({
                                 showAccount()
-                            }, 2000)
+                            }, 1500)
                         } else {
                             Toast.makeText(this, "wrong id or password!!", Toast.LENGTH_SHORT)
                                 .show()
@@ -266,12 +295,16 @@ class MainActivity : AppCompatActivity() {
             btnOffers.setTextColor(getColor(R.color.white))
             btnActive.setTextColor(getColor(R.color.brightRed))
             btnActive.setBackgroundResource(R.drawable.left_background_white)
+
+            offerItems(list)
         }
         btnActive.setOnClickListener {
             btnOffers.setBackgroundResource(R.drawable.right_background)
             btnOffers.setTextColor(getColor(R.color.brightRed))
             btnActive.setTextColor(getColor(R.color.white))
             btnActive.setBackgroundResource(R.drawable.left_background)
+
+            offerItems(activeList)
         }
         btnmap.setOnClickListener {
             bottom_navigation.selectedItemId = R.id.nav_map
@@ -303,6 +336,30 @@ class MainActivity : AppCompatActivity() {
         }
 
     } // <--- End of onCreate
+
+    private fun generateItems(offerList: ArrayList<OfferItem>): List<OfferItem>{
+        val list = ArrayList<OfferItem>()
+        println(offerList)
+        for (i in offerList){
+            val item = OfferItem(i.name, i.desc)
+            list += item
+        }
+        return list
+    }
+
+    private fun offerItems(list: ArrayList<OfferItem>) {
+        val restaurants: MutableList<String> = ArrayList()
+        Firebase.firestore.collection("restaurants").get().addOnSuccessListener {
+            for (document in it){
+                restaurants.add(document.id)
+            }
+            println(list)
+            val items = generateItems(list)
+            recycler_view.adapter = ItemAdapter(items)
+            recycler_view.layoutManager = LinearLayoutManager(this)
+            recycler_view.setHasFixedSize(true)
+        }
+    }
 
     override fun onResume() {
         super.onResume()
@@ -338,13 +395,5 @@ class MainActivity : AppCompatActivity() {
         login_layout.visibility=View.GONE
         qr_code_layout.visibility=View.VISIBLE
         offers_page.visibility= View.GONE
-    }
-
-    private fun showActive(){
-
-    }
-
-    private fun showFindOffers() {
-
     }
 }

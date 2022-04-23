@@ -36,7 +36,7 @@
     <org.osmdroid.views.MapView
         android:id="@+id/mapView"
         android:layout_width="0dp"
-        android:layout_height="400dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="35dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -3,25 +3,24 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Kotlin/Road2Food/app/src/main/res/layout/account.xml" value="0.2109375" />
-        <entry key="..\:/Kotlin/Road2Food/app/src/main/res/layout/activity_main.xml" value="0.16" />
-        <entry key="..\:/Kotlin/Road2Food/app/src/main/res/layout/fragment_account.xml" value="0.2109375" />
-        <entry key="..\:/Kotlin/Road2Food/app/src/main/res/layout/fragment_home.xml" value="0.2" />
-        <entry key="..\:/Kotlin/Road2Food/app/src/main/res/layout/fragment_map1.xml" value="0.10258358662613981" />
-        <entry key="..\:/Kotlin/Road2Food/app/src/main/res/layout/fragment_offers.xml" value="0.2" />
         <entry key="..\:/Users/Sane/Documents/GitHub/Road2Food/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
         <entry key="..\:/Users/Sane/Documents/GitHub/Road2Food/app/src/main/res/drawable/account_buttons.xml" value="0.27" />
+        <entry key="..\:/Users/Sane/Documents/GitHub/Road2Food/app/src/main/res/drawable/background_bg.xml" value="0.2635" />
+        <entry key="..\:/Users/Sane/Documents/GitHub/Road2Food/app/src/main/res/drawable/button_background.xml" value="0.2635" />
         <entry key="..\:/Users/Sane/Documents/GitHub/Road2Food/app/src/main/res/drawable/filter_button.xml" value="0.1155" />
         <entry key="..\:/Users/Sane/Documents/GitHub/Road2Food/app/src/main/res/drawable/ic_baseline_account.xml" value="0.288" />
+        <entry key="..\:/Users/Sane/Documents/GitHub/Road2Food/app/src/main/res/drawable/ic_baseline_diamond_24.xml" value="0.2635" />
         <entry key="..\:/Users/Sane/Documents/GitHub/Road2Food/app/src/main/res/drawable/ic_baseline_home.xml" value="0.288" />
         <entry key="..\:/Users/Sane/Documents/GitHub/Road2Food/app/src/main/res/drawable/ic_baseline_map.xml" value="0.288" />
         <entry key="..\:/Users/Sane/Documents/GitHub/Road2Food/app/src/main/res/drawable/ic_baseline_offer.xml" value="0.288" />
+        <entry key="..\:/Users/Sane/Documents/GitHub/Road2Food/app/src/main/res/drawable/ic_close.xml" value="0.2635" />
         <entry key="..\:/Users/Sane/Documents/GitHub/Road2Food/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
         <entry key="..\:/Users/Sane/Documents/GitHub/Road2Food/app/src/main/res/drawable/ic_location_pin.xml" value="0.1" />
         <entry key="..\:/Users/Sane/Documents/GitHub/Road2Food/app/src/main/res/drawable/ic_restaurant.xml" value="0.1" />
         <entry key="..\:/Users/Sane/Documents/GitHub/Road2Food/app/src/main/res/drawable/infobox_background.xml" value="0.2075" />
         <entry key="..\:/Users/Sane/Documents/GitHub/Road2Food/app/src/main/res/drawable/infobox_offers_btn.xml" value="0.2075" />
         <entry key="..\:/Users/Sane/Documents/GitHub/Road2Food/app/src/main/res/drawable/logout_button.xml" value="0.27" />
+        <entry key="..\:/Users/Sane/Documents/GitHub/Road2Food/app/src/main/res/drawable/offer_buttons.xml" value="0.2635" />
         <entry key="..\:/Users/Sane/Documents/GitHub/Road2Food/app/src/main/res/drawable/vertical_seperator.xml" value="0.1655" />
         <entry key="..\:/Users/Sane/Documents/GitHub/Road2Food/app/src/main/res/drawable/wide_seperator.xml" value="0.1655" />
         <entry key="..\:/Users/Sane/Documents/GitHub/Road2Food/app/src/main/res/font/normal_white.xml" value="0.396875" />
@@ -34,6 +33,9 @@
         <entry key="..\:/Users/Sane/Documents/GitHub/Road2Food/app/src/main/res/layout/fragment_offers.xml" value="0.3625" />
         <entry key="..\:/Users/Sane/Documents/GitHub/Road2Food/app/src/main/res/layout/map.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Sane/Documents/GitHub/Road2Food/app/src/main/res/layout/mapview.xml" value="0.1" />
+        <entry key="..\:/Users/Sane/Documents/GitHub/Road2Food/app/src/main/res/layout/offer_item.xml" value="0.67" />
+        <entry key="..\:/Users/Sane/Documents/GitHub/Road2Food/app/src/main/res/layout/offers.xml" value="0.21804170444242973" />
+        <entry key="..\:/Users/Sane/Documents/GitHub/Road2Food/app/src/main/res/layout/recycler_view.xml" value="0.2274476271911073" />
         <entry key="..\:/Users/Sane/Documents/GitHub/Road2Food/app/src/main/res/layout/restaurant_map_info.xml" value="0.25" />
         <entry key="..\:/Users/Sane/Documents/GitHub/Road2Food/app/src/main/res/layout/user_login.xml" value="0.1" />
         <entry key="..\:/Users/Sane/Documents/GitHub/Road2Food/app/src/main/res/layout/user_registeration.xml" value="0.22010869565217392" />
