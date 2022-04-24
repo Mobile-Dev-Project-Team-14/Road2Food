@@ -1,16 +1,10 @@
 package com.project.road2food
 
-
-//import androidx.appcompat.app.AppCompatActivity
-//import com.google.android.material.navigation.NavigationBarView
-
 import android.Manifest
 import android.location.Location
-import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
-import android.widget.Button
 import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -71,10 +65,14 @@ class MainActivity : AppCompatActivity() {
 
     // ---> Start of onCreate
     override fun onCreate(savedInstanceState: Bundle?) {
+        setContentView(R.layout.activity_main)
 
         val list = ArrayList<OfferItem>()
         val activeList = ArrayList<OfferItem>()
         val restaurants: MutableList<String> = ArrayList()
+
+        auth = FirebaseAuth.getInstance()
+        val currentUser = auth.currentUser
 
         Firebase.firestore.collection("restaurants").get().addOnSuccessListener {
             for (document in it) {
@@ -97,7 +95,6 @@ class MainActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         getInstance().load(this, PreferenceManager.getDefaultSharedPreferences(this))
-        setContentView(R.layout.activity_main)
 
         map = findViewById<MapView>(R.id.mapView)
         map.setTileSource(TileSourceFactory.MAPNIK)
@@ -194,9 +191,6 @@ class MainActivity : AppCompatActivity() {
             offers_page.visibility= View.GONE
         }
         fun showAccount(){
-            val currentUser = auth.currentUser
-            println("******!!!!!!!!!  CURRENT USER BELOW !!!!!******")
-            println(currentUser)
             offers_layout.visibility= View.GONE
             account_layout.visibility=View.VISIBLE
             home_layout.visibility=View.GONE
@@ -219,9 +213,6 @@ class MainActivity : AppCompatActivity() {
             offers_layout.visibility= View.GONE
         }
         fun showLogIn() {
-            val currentUser = auth.currentUser
-            println("******!!!!!!!!!  CURRENT USER BELOW !!!!!******")
-            println(currentUser)
             if (currentUser != null) {
                 showAccount()
             } else {
@@ -250,8 +241,6 @@ class MainActivity : AppCompatActivity() {
         registration.setOnClickListener{
             showRegistration()
         }
-
-        auth = FirebaseAuth.getInstance()
 
 /* function for registration button*/
         registration_btn.setOnClickListener {
@@ -293,12 +282,12 @@ class MainActivity : AppCompatActivity() {
                     }
             }
         }
-
+/*
         logoutButton.setOnClickListener {
             FirebaseAuth.getInstance().signOut();
             showLogIn()
         }
-
+*/
         bottom_navigation.setOnItemSelectedListener {
                    when (it.itemId) {
                        R.id.nav_home -> showHome()

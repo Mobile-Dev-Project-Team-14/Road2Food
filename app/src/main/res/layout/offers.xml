@@ -7,14 +7,15 @@
     android:background="@color/red">
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="200dp"
-        android:layout_height="180dp"
+        android:id="@+id/offersLogo"
+        android:layout_width="180dp"
+        android:layout_height="173dp"
         android:layout_marginTop="10dp"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo1trns" />
+        android:src="@drawable/logo1trns" />
 
     <Button
         android:id="@+id/btnActive"
@@ -26,7 +27,7 @@
         android:textSize="16sp"
         android:background="@drawable/left_background"
         app:layout_constraintEnd_toStartOf="@+id/tvMidor"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/offersLogo" />
 
     <Button
         android:id="@+id/btnOffers"
@@ -38,7 +39,7 @@
         android:textColor="@color/brightRed"
         android:background="@drawable/right_background"
         app:layout_constraintStart_toEndOf="@+id/tvMidor"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/offersLogo" />
 
     <TextView
         android:id="@+id/tvMidor"
@@ -50,7 +51,7 @@
         android:layout_marginTop="50dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/offersLogo" />
 
     <TextView
         android:id="@+id/textView12"
