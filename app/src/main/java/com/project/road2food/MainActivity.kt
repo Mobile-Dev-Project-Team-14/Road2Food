@@ -50,6 +50,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.QuerySnapshot
+import kotlinx.android.synthetic.main.account.*
 import kotlinx.android.synthetic.main.fragment_home.btnmap
 import kotlinx.android.synthetic.main.fragment_home.btnoffers
 import kotlinx.android.synthetic.main.fragment_home.view.*
@@ -131,7 +132,6 @@ class MainActivity : AppCompatActivity() {
             val mapController = map.controller
             mapController.setZoom(14.5)
             val startPoint = GeoPoint(latitude, longitude)
-            println(startPoint)
             mapController.setCenter(startPoint)
             map.setMultiTouchControls(true)
 
@@ -194,6 +194,9 @@ class MainActivity : AppCompatActivity() {
             offers_page.visibility= View.GONE
         }
         fun showAccount(){
+            val currentUser = auth.currentUser
+            println("******!!!!!!!!!  CURRENT USER BELOW !!!!!******")
+            println(currentUser)
             offers_layout.visibility= View.GONE
             account_layout.visibility=View.VISIBLE
             home_layout.visibility=View.GONE
@@ -216,13 +219,20 @@ class MainActivity : AppCompatActivity() {
             offers_layout.visibility= View.GONE
         }
         fun showLogIn() {
-            offers_page.visibility=View.GONE
-            registration_layout.visibility = View.GONE
-            offers_layout.visibility= View.GONE
-            account_layout.visibility=View.GONE
-            home_layout.visibility=View.GONE
-            mapview_layout.visibility=View.GONE
-            login_layout.visibility = View.VISIBLE
+            val currentUser = auth.currentUser
+            println("******!!!!!!!!!  CURRENT USER BELOW !!!!!******")
+            println(currentUser)
+            if (currentUser != null) {
+                showAccount()
+            } else {
+                offers_page.visibility = View.GONE
+                registration_layout.visibility = View.GONE
+                offers_layout.visibility = View.GONE
+                account_layout.visibility = View.GONE
+                home_layout.visibility = View.GONE
+                mapview_layout.visibility = View.GONE
+                login_layout.visibility = View.VISIBLE
+            }
         }
 
         fun showRegistration() {
@@ -249,9 +259,16 @@ class MainActivity : AppCompatActivity() {
             val password = login_password.text.toString().trim()
 
             if (email.isNotEmpty() || password.isNotEmpty()) {
+                val userOffers = hashMapOf(
+                    "name" to "offer_1"
+                )
 
                 auth.createUserWithEmailAndPassword(email, password)
                 Toast.makeText(this, "account created sucessfully!!", Toast.LENGTH_SHORT).show()
+                Firebase.firestore.collection("users").document(email).set(userOffers)
+                println(email)
+
+                //Firebase.firestore.collection("users").add()
             } else {
                 Toast.makeText(this, "fill every field", Toast.LENGTH_SHORT).show()
             }
@@ -275,6 +292,11 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
             }
+        }
+
+        logoutButton.setOnClickListener {
+            FirebaseAuth.getInstance().signOut();
+            showLogIn()
         }
 
         bottom_navigation.setOnItemSelectedListener {
@@ -353,7 +375,6 @@ class MainActivity : AppCompatActivity() {
             for (document in it){
                 restaurants.add(document.id)
             }
-            println(list)
             val items = generateItems(list)
             recycler_view.adapter = ItemAdapter(items)
             recycler_view.layoutManager = LinearLayoutManager(this)
