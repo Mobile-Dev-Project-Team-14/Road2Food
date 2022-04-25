@@ -29,24 +29,29 @@ class ItemAdapter(private val itemList: List<OfferItem>) : RecyclerView.Adapter<
 
             val auth = FirebaseAuth.getInstance()
             val currentUser = auth.currentUser
-            val addOffer = hashMapOf(
-                "restaurant_name" to currentItem.name,
-                "offer_description" to currentItem.desc,
-                "offer_start" to currentItem.start,
-                "offer_target" to currentItem.target
-            )
+            val uid = currentUser?.uid
+            if (uid != null) {
+                val addOffer = hashMapOf(
+                    "restaurant_name" to currentItem.name,
+                    "offer_description" to currentItem.desc,
+                    "offer_start" to currentItem.start,
+                    "offer_target" to currentItem.target
+                )
 
-            db.collection("users").document(currentUser!!.uid).collection("user_offers")
-                .get().addOnSuccessListener {
-                    var totalOffers = it.size().toString()
-                    if (it.size() < 1) {
-                        db.collection("users").document(currentUser!!.uid).collection("user_offers")
-                            .document("offer_1").set(addOffer)
-                    } else {
-                        db.collection("users").document(currentUser!!.uid).collection("user_offers")
-                            .document("offer_" + totalOffers).set(addOffer)
+                db.collection("users").document(currentUser!!.uid).collection("user_offers")
+                    .get().addOnSuccessListener {
+                        var totalOffers = it.size().toString()
+                        if (it.size() < 1) {
+                            db.collection("users").document(currentUser!!.uid)
+                                .collection("user_offers")
+                                .document("offer_1").set(addOffer)
+                        } else {
+                            db.collection("users").document(currentUser!!.uid)
+                                .collection("user_offers")
+                                .document("offer_" + totalOffers).set(addOffer)
+                        }
                     }
-                }
+            }
         }
     }
 

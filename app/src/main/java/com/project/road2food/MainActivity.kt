@@ -67,7 +67,6 @@ class MainActivity : AppCompatActivity() {
         val restaurants: MutableList<String> = ArrayList()
 
         auth = FirebaseAuth.getInstance()
-        val uid = auth.currentUser!!.uid
 
 
         // ---> Fetch possible offers
@@ -182,6 +181,7 @@ class MainActivity : AppCompatActivity() {
         fun userOffers() {
             val fetchedList = ArrayList<OfferItemUser>()
             // ---> Fetch current user offers
+            val uid = auth.currentUser?.uid
             if (uid != null) {
                 Firebase.firestore.collection("users").document(uid)
                     .collection("user_offers").get().addOnSuccessListener {
@@ -201,11 +201,12 @@ class MainActivity : AppCompatActivity() {
                                     fetchedList += item
                                 }
                             activeList = fetchedList
-
                             offerCount--
                         }
                     }
                 offerItemsUser(activeList)
+            } else {
+                offerItemsUser(fetchedList)
             }
         }
 
