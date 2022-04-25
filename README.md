@@ -12,7 +12,7 @@ Purity – App Navigation, offers and functionality.
 Manish – Account 
 
 ## Tools
-Kotlin was the main language and Firebase/Firestore for account validation and data storage. 
+Kotlin was the main language and Firebase/Firestore for account validation and data storage:
 https://kotlinlang.org/
 Google map API:
 Google Maps: https://developer.android.com/training/maps 
