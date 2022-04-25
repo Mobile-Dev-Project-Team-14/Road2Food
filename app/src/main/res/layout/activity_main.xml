@@ -24,10 +24,7 @@
         android:id="@+id/mapview_layout"
         layout="@layout/mapview"
         android:visibility="gone"/>
-    <include
-        android:id="@+id/qr_code_layout"
-        layout="@layout/qr_code"
-        android:visibility="gone"/>
+
     <include
         android:id="@+id/home_layout"
         layout="@layout/fragment_home"
@@ -39,6 +36,10 @@
     <include
         android:id="@+id/offers_page"
         layout="@layout/offers"
+        android:visibility="gone"/>
+    <include
+        android:id="@+id/qr_code_layout"
+        layout="@layout/qr_code"
         android:visibility="gone"/>
 
     <FrameLayout

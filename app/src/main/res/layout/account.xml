@@ -93,7 +93,7 @@
         app:layout_constraintTop_toBottomOf="@+id/activeOffersButton" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/tvAccountEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
@@ -112,7 +112,7 @@
         android:text="Change password"
         android:textColor="@color/white"
         app:layout_constraintStart_toEndOf="@+id/textView3"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/tvAccountEmail" />
 
     <TextView
         android:id="@+id/tvActiveCount"

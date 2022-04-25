@@ -3,10 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="80dp"
     >
-    <include
-        android:id="@+id/confirm"
-        layout="@layout/confirm_offer"
-        android:visibility="gone"/>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -32,12 +28,12 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/btnTakeOffer"
+        android:id="@+id/btnTakeOfferUser"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
         android:layout_marginTop="6dp"
         android:layout_marginRight="15dp"
         android:background="@drawable/offer_buttons"
         android:drawableTop="@drawable/ic_baseline_diamond_24"
-        android:paddingTop="15dp" />
+        android:paddingTop="15dp"/>
 </LinearLayout>

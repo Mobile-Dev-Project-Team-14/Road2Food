@@ -4,12 +4,12 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="#FF0000">
+    android:background="@color/red">
 
     <ImageView
         android:layout_gravity="center"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="180dp"
+        android:layout_height="173dp"
         android:src="@drawable/logo1trns"/>
 
     <LinearLayout
@@ -25,7 +25,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
-                android:layout_marginTop="15dp"
                 android:layout_marginBottom="10dp"
                 android:text="Select Category:"
                 android:textColor="#fff"
@@ -37,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_marginEnd="65dp"
-                android:backgroundTint="#FF0000"
+                android:backgroundTint="@color/red"
                 android:text="Lunch"
                 android:textAllCaps="false"
                 android:textColor="@color/white" />
@@ -50,9 +49,7 @@
                 android:layout_marginEnd="40dp"
                 android:clickable="true"
                 android:src="@drawable/ic_dropdown" />
-
         </RelativeLayout>
-
     </LinearLayout>
 
     <ScrollView
@@ -363,7 +360,7 @@
             android:id="@+id/map_offers_layout"
             android:layout_width="381dp"
             android:layout_height="50dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:orientation="horizontal">
 
             <Button
