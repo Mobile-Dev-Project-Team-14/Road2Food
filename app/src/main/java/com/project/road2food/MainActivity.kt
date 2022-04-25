@@ -1,11 +1,16 @@
 package com.project.road2food
 
 import android.Manifest
+import android.content.pm.PackageManager
 import android.location.Location
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.PopupMenu
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -19,39 +24,29 @@ import com.google.android.gms.location.LocationServices
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.project.road2food.data.AccountFragment
-import com.project.road2food.data.HomeFragment
-import com.project.road2food.data.OffersFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.mapview.*
 import org.osmdroid.config.Configuration.getInstance
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.MapView
-import org.osmdroid.views.overlay.*
 import com.google.zxing.BarcodeFormat
 import com.journeyapps.barcodescanner.BarcodeEncoder
-import com.project.road2food.data.Lunch_Menu
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.offers.*
 import kotlinx.android.synthetic.main.qr_code.*
 import kotlinx.android.synthetic.main.user_login.*
 import kotlinx.android.synthetic.main.user_registeration.*
 import org.osmdroid.views.overlay.Marker
-import android.view.LayoutInflater
-import android.widget.RelativeLayout
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.Task
-import com.google.firebase.firestore.QuerySnapshot
+import com.google.firebase.auth.ktx.auth
 import kotlinx.android.synthetic.main.account.*
 import kotlinx.android.synthetic.main.fragment_home.btnmap
 import kotlinx.android.synthetic.main.fragment_home.btnoffers
-import kotlinx.android.synthetic.main.fragment_home.view.*
-import kotlinx.android.synthetic.main.lunchmenu.*
+import kotlinx.android.synthetic.main.offer_item.*
+import kotlinx.android.synthetic.main.offer_item_user.*
 import java.util.*
 import kotlin.collections.ArrayList
-import kotlin.concurrent.schedule
 
 class MainActivity : AppCompatActivity() {
     private val REQUEST_PERMISSIONS_REQUEST_CODE = 1;
@@ -68,12 +63,14 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val list = ArrayList<OfferItem>()
-        val activeList = ArrayList<OfferItem>()
+        var activeList = ArrayList<OfferItemUser>()
         val restaurants: MutableList<String> = ArrayList()
 
         auth = FirebaseAuth.getInstance()
-        val currentUser = auth.currentUser
+        val uid = auth.currentUser!!.uid
 
+
+        // ---> Fetch possible offers
         Firebase.firestore.collection("restaurants").get().addOnSuccessListener {
             for (document in it) {
                 val restaurantName = document.get("name").toString()
@@ -81,17 +78,24 @@ class MainActivity : AppCompatActivity() {
                 Firebase.firestore.collection("restaurants").document(document.id)
                     .collection("offers").document("offer_1").get().addOnSuccessListener {
                         val offer_desc = it.get("description").toString()
-                        val item = OfferItem(restaurantName, offer_desc)
+                        val start = it.get("start")
+                        val target = it.get("target")
+
+                        val item = OfferItem(restaurantName, offer_desc, start, target)
                         list+=item
                     }
                 Firebase.firestore.collection("restaurants").document(document.id)
                     .collection("offers").document("offer_2").get().addOnSuccessListener {
                         val offer_desc = it.get("description").toString()
-                        val item = OfferItem(restaurantName, offer_desc)
+                        val start = it.get("counter")
+                        val target = it.get("isActive")
+
+                        val item = OfferItem(restaurantName, offer_desc, start, target)
                         list+=item
                     }
             }
-        }
+        } // <--- End of fetch offers
+
 
         super.onCreate(savedInstanceState)
         getInstance().load(this, PreferenceManager.getDefaultSharedPreferences(this))
@@ -116,51 +120,36 @@ class MainActivity : AppCompatActivity() {
             }
             }
         }
-        locationPermissionRequest.launch(
-            arrayOf(
-                Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            )
-        )
-        // <--- End of permission request
-
-        // ---> Initialize map
-        fun initMap() {
-            val mapController = map.controller
-            mapController.setZoom(14.5)
-            val startPoint = GeoPoint(latitude, longitude)
-            mapController.setCenter(startPoint)
-            map.setMultiTouchControls(true)
-
-            val userPosition = Marker(mapView)
-            var geoPoint = GeoPoint(latitude, longitude)
-            userPosition.position = geoPoint
-
-            userPosition.setAnchor(Marker.ANCHOR_BOTTOM, Marker.ANCHOR_CENTER)
-            userPosition.title = "You're here!"
-            userPosition.icon = ContextCompat.getDrawable(this, R.drawable.ic_you)
-            mapView.overlays.add(userPosition)
-
-            val db = Firebase.firestore
-            db.collection("restaurants").get().addOnSuccessListener {
-                for (restaurant in it){
-                    val restaurantMarker = Marker(mapView)
-                    val geo = restaurant.getGeoPoint("coordinates")
-                    val latitude: Double = geo!!.latitude
-                    val longitude: Double = geo!!.longitude
-                    val restaurantPos = GeoPoint(latitude, longitude)
-                    restaurantMarker.position = restaurantPos
-                    restaurantMarker.icon = ContextCompat.getDrawable(this, R.drawable.ic_location_pin)
-                    val infoWindow = MarkerWindow(mapView, restaurant.id)
-                    restaurantMarker.infoWindow = infoWindow
-
-                    mapView.overlays.add(restaurantMarker)
-                    mapView.invalidate()
-                }
-            }
-        }
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            val locationPermissionRequest = registerForActivityResult(
+                ActivityResultContracts.RequestMultiplePermissions()
+            ) {
+                    permissions ->
+                when {
+                    permissions.getOrDefault(Manifest.permission.ACCESS_FINE_LOCATION, false) -> {
+                        // Precise location granted
+                    }
+                    permissions.getOrDefault(Manifest.permission.ACCESS_COARSE_LOCATION, false) -> {
+                        // Approx location granted
+                    } else -> {
+                    // Permission denied
+                    println("Permission denied")
+                }
+                }
+            }
+            return
+        }// <--- End of permission request
+
+        // ---> User location
         fusedLocationClient.lastLocation.addOnSuccessListener {
                 location : Location ->
             longitude = location.longitude
@@ -168,13 +157,57 @@ class MainActivity : AppCompatActivity() {
             initMap()
         }
         fusedLocationClient.lastLocation.addOnFailureListener { println("Location not found") }
-        // <--- End of map
+        locationPermissionRequest.launch(
+            arrayOf(
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            )
+        ) // <--- End of user location
 
         fun setCurrentFragment(fragment: Fragment) =
             supportFragmentManager.beginTransaction().apply {
                 replace(R.id.fragment_container, fragment)
                 commit()
             }
+        fun showQr(){
+            val text = "QR code here"
+            val encoder = BarcodeEncoder()
+            val bitMap = encoder.encodeBitmap(text, BarcodeFormat.QR_CODE, 300, 300)
+            ivQRCode.setImageBitmap(bitMap)
+            registration_layout.visibility= View.GONE
+            login_layout.visibility=View.GONE
+            qr_code_layout.visibility=View.VISIBLE
+            offers_page.visibility= View.GONE
+        }
+        fun userOffers() {
+            val fetchedList = ArrayList<OfferItemUser>()
+            // ---> Fetch current user offers
+            if (uid != null) {
+                Firebase.firestore.collection("users").document(uid)
+                    .collection("user_offers").get().addOnSuccessListener {
+                        var offerCount = it.size() - 1
+                        offerCount.toString()
+                        var counter = offerCount
+                        println(offerCount)
+                        while (offerCount > 0) {
+                            Firebase.firestore.collection("users").document(uid)
+                                .collection("user_offers").document("offer_" + offerCount).get()
+                                .addOnSuccessListener {
+                                    val restaurant_name = it.get("restaurant_name").toString()
+                                    val offer_desc = it.get("offer_description").toString()
+                                    val start = it.get("offer_start")
+                                    val target = it.get("offer_target")
+                                    val item = OfferItemUser(restaurant_name, offer_desc, start, target)
+                                    fetchedList += item
+                                }
+                            activeList = fetchedList
+
+                            offerCount--
+                        }
+                    }
+                offerItemsUser(activeList)
+            }
+        }
 
         fun showHome(){
             offers_layout.visibility= View.GONE
@@ -189,14 +222,29 @@ class MainActivity : AppCompatActivity() {
             home_layout.visibility=View.GONE
             mapview_layout.visibility=View.GONE
             offers_page.visibility= View.GONE
+            userOffers()
+
         }
+
         fun showAccount(){
-            offers_layout.visibility= View.GONE
-            account_layout.visibility=View.VISIBLE
-            home_layout.visibility=View.GONE
-            mapview_layout.visibility=View.GONE
-            offers_page.visibility= View.GONE
-            login_layout.visibility=View.GONE
+            val currentUser = Firebase.auth.currentUser
+            if (currentUser != null ) {
+                currentUser?.let {
+                    val email = currentUser.email
+                    println("*******************************************************")
+                    println(email)
+                    findViewById<TextView>(R.id.tvAccountEmail).setText(email.toString()).toString()
+                }
+
+                offers_layout.visibility = View.GONE
+                account_layout.visibility = View.VISIBLE
+                home_layout.visibility = View.GONE
+                mapview_layout.visibility = View.GONE
+                offers_page.visibility = View.GONE
+                login_layout.visibility = View.GONE
+            } else {
+                R.id.nav_account
+            }
         }
         fun showMap(){
             offers_layout.visibility= View.GONE
@@ -212,7 +260,9 @@ class MainActivity : AppCompatActivity() {
             mapview_layout.visibility=View.GONE
             offers_layout.visibility= View.GONE
         }
+
         fun showLogIn() {
+            val currentUser = auth.currentUser
             if (currentUser != null) {
                 showAccount()
             } else {
@@ -243,21 +293,30 @@ class MainActivity : AppCompatActivity() {
         }
 
 /* function for registration button*/
+
         registration_btn.setOnClickListener {
             val email = login_email.text.toString().trim()
             val password = login_password.text.toString().trim()
 
             if (email.isNotEmpty() || password.isNotEmpty()) {
-                val userOffers = hashMapOf(
-                    "name" to "offer_1"
+                val init = hashMapOf(
+                    "email" to email
                 )
 
                 auth.createUserWithEmailAndPassword(email, password)
-                Toast.makeText(this, "account created sucessfully!!", Toast.LENGTH_SHORT).show()
-                Firebase.firestore.collection("users").document(email).set(userOffers)
-                println(email)
-
-                //Firebase.firestore.collection("users").add()
+                    .addOnCompleteListener(this) { task ->
+                        if (task.isSuccessful) {
+                            val userId = auth.currentUser!!.uid
+                            Toast.makeText(this, "account created sucessfully!!", Toast.LENGTH_SHORT).show()
+                            Firebase.firestore.collection("users").document(userId).collection("user_offers").document("account_details")
+                                .set(init)
+                            showAccount()
+                        } else {
+                            Log.w("createUserWithEmail:failure", task.exception)
+                            Toast.makeText(baseContext, "Registration failed.",
+                                Toast.LENGTH_SHORT).show()
+                        }
+                    }
             } else {
                 Toast.makeText(this, "fill every field", Toast.LENGTH_SHORT).show()
             }
@@ -273,7 +332,7 @@ class MainActivity : AppCompatActivity() {
                         if (task.isSuccessful) {
                             Toast.makeText(this, "Login sucessful", Toast.LENGTH_SHORT).show()
                             Handler().postDelayed({
-                                showAccount()
+                                //showAccount()
                             }, 1500)
                         } else {
                             Toast.makeText(this, "wrong id or password!!", Toast.LENGTH_SHORT)
@@ -282,12 +341,13 @@ class MainActivity : AppCompatActivity() {
                     }
             }
         }
-/*
+
         logoutButton.setOnClickListener {
+            println("Logging out")
             FirebaseAuth.getInstance().signOut();
             showLogIn()
         }
-*/
+
         bottom_navigation.setOnItemSelectedListener {
                    when (it.itemId) {
                        R.id.nav_home -> showHome()
@@ -310,22 +370,20 @@ class MainActivity : AppCompatActivity() {
             offerItems(list)
         }
         btnActive.setOnClickListener {
+            userOffers()
             btnOffers.setBackgroundResource(R.drawable.right_background)
             btnOffers.setTextColor(getColor(R.color.brightRed))
             btnActive.setTextColor(getColor(R.color.white))
             btnActive.setBackgroundResource(R.drawable.left_background)
-
-            offerItems(activeList)
         }
+
         btnmap.setOnClickListener {
             bottom_navigation.selectedItemId = R.id.nav_map
         }
         btnoffers.setOnClickListener {
             showOffers()
         }
-
         dropDown.setOnClickListener {
-
             //val PopupMenu = findViewById<Button>(R.id.dropDown)
             val popupMenu: PopupMenu = PopupMenu(this, dropDown)
             popupMenu.menuInflater.inflate(R.menu.food_menu, popupMenu.menu)
@@ -345,14 +403,23 @@ class MainActivity : AppCompatActivity() {
                 true
             })
         }
-
+        userOffers()
     } // <--- End of onCreate
 
     private fun generateItems(offerList: ArrayList<OfferItem>): List<OfferItem>{
         val list = ArrayList<OfferItem>()
         println(offerList)
         for (i in offerList){
-            val item = OfferItem(i.name, i.desc)
+            val item = OfferItem(i.name, i.desc, i.start, i.target)
+            list += item
+        }
+        return list
+    }
+    private fun generateItemsUser(offerList: ArrayList<OfferItemUser>): List<OfferItemUser>{
+        val list = ArrayList<OfferItemUser>()
+        println(offerList)
+        for (i in offerList){
+            val item = OfferItemUser(i.name, i.desc, i.start, i.target)
             list += item
         }
         return list
@@ -370,6 +437,18 @@ class MainActivity : AppCompatActivity() {
             recycler_view.setHasFixedSize(true)
         }
     }
+    private fun offerItemsUser(list: ArrayList<OfferItemUser>) {
+        val restaurants: MutableList<String> = ArrayList()
+        Firebase.firestore.collection("restaurants").get().addOnSuccessListener {
+            for (document in it){
+                restaurants.add(document.id)
+            }
+            val items = generateItemsUser(list)
+            recycler_view.adapter = ItemAdapterUser(items)
+            recycler_view.layoutManager = LinearLayoutManager(this)
+            recycler_view.setHasFixedSize(true)
+        }
+    }
 
     override fun onResume() {
         super.onResume()
@@ -380,30 +459,52 @@ class MainActivity : AppCompatActivity() {
         super.onPause()
         map.onPause()
     }
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        val permissionsToRequest = ArrayList<String>();
-        var i = 0;
-        while (i < grantResults.size) {
-            permissionsToRequest.add(permissions[i]);
-            i++;
-        }
-        if (permissionsToRequest.size > 0) {
-            ActivityCompat.requestPermissions(
-                this,
-                permissionsToRequest.toTypedArray(),
-                REQUEST_PERMISSIONS_REQUEST_CODE);
-        }
-    }
 
-    private fun showQr(){
+    private fun showQr(view: View){
         val text = "QR code here"
         val encoder = BarcodeEncoder()
         val bitMap = encoder.encodeBitmap(text, BarcodeFormat.QR_CODE, 300, 300)
         ivQRCode.setImageBitmap(bitMap)
-
         registration_layout.visibility= View.GONE
         login_layout.visibility=View.GONE
         qr_code_layout.visibility=View.VISIBLE
         offers_page.visibility= View.GONE
     }
+
+    // ---> Initialize map
+    private fun initMap() {
+        val mapController = map.controller
+        mapController.setZoom(14.5)
+        val startPoint = GeoPoint(latitude, longitude)
+        mapController.setCenter(startPoint)
+        map.setMultiTouchControls(true)
+
+        val userPosition = Marker(mapView)
+        var geoPoint = GeoPoint(latitude, longitude)
+        userPosition.position = geoPoint
+
+        userPosition.setAnchor(Marker.ANCHOR_BOTTOM, Marker.ANCHOR_CENTER)
+        userPosition.title = "You're here!"
+        userPosition.icon = ContextCompat.getDrawable(this, R.drawable.ic_you)
+        mapView.overlays.add(userPosition)
+
+        val db = Firebase.firestore
+        db.collection("restaurants").get().addOnSuccessListener {
+            for (restaurant in it){
+                val restaurantMarker = Marker(mapView)
+                val geo = restaurant.getGeoPoint("coordinates")
+                val latitude: Double = geo!!.latitude
+                val longitude: Double = geo!!.longitude
+                val restaurantPos = GeoPoint(latitude, longitude)
+                restaurantMarker.position = restaurantPos
+                restaurantMarker.icon = ContextCompat.getDrawable(this, R.drawable.ic_location_pin)
+                val infoWindow = MarkerWindow(mapView, restaurant.id)
+                restaurantMarker.infoWindow = infoWindow
+
+                mapView.overlays.add(restaurantMarker)
+                mapView.invalidate()
+            }
+        }
+    }
+    // <--- End of map
 }
