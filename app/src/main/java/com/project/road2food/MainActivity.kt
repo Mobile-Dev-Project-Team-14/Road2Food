@@ -129,7 +129,14 @@ class MainActivity : AppCompatActivity() {
                 Manifest.permission.ACCESS_COARSE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
         ) {
-            val locationPermissionRequest = registerForActivityResult(
+            locationPermissionRequest.launch(
+                arrayOf(
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                )
+            )
+
+            /*val locationPermissionRequest = registerForActivityResult(
                 ActivityResultContracts.RequestMultiplePermissions()
             ) {
                     permissions ->
@@ -144,7 +151,7 @@ class MainActivity : AppCompatActivity() {
                     println("Permission denied")
                 }
                 }
-            }
+            }*/
             return
         }// <--- End of permission request
 
@@ -156,12 +163,12 @@ class MainActivity : AppCompatActivity() {
             initMap()
         }
         fusedLocationClient.lastLocation.addOnFailureListener { println("Location not found") }
-        locationPermissionRequest.launch(
+        /*locationPermissionRequest.launch(
             arrayOf(
                 Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.ACCESS_COARSE_LOCATION
             )
-        ) // <--- End of user location
+        )*/ // <--- End of user location
 
         fun setCurrentFragment(fragment: Fragment) =
             supportFragmentManager.beginTransaction().apply {
