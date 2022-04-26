@@ -5,30 +5,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/red" >
-
-
-    <TextView
-        android:id="@+id/tvLogo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Road to Food"
-        android:layout_marginTop="30dp"
-        android:textColor="@color/white"
-        android:textSize="30sp"
+    <ImageView
+        android:id="@+id/qrLogo"
+        android:layout_width="180dp"
+        android:layout_height="173dp"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/logo1trns" />
 
     <TextView
         android:id="@+id/tvScan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="55dp"
+        android:layout_marginTop="20dp"
         android:textColor="@color/white"
         android:text="Scan when buying at"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvLogo" />
+        app:layout_constraintTop_toBottomOf="@+id/qrLogo" />
 
     <TextView
         android:id="@+id/tvRestaurantName"

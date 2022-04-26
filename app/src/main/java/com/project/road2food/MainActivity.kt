@@ -95,7 +95,6 @@ class MainActivity : AppCompatActivity() {
             }
         } // <--- End of fetch offers
 
-
         super.onCreate(savedInstanceState)
         getInstance().load(this, PreferenceManager.getDefaultSharedPreferences(this))
 
@@ -223,6 +222,7 @@ class MainActivity : AppCompatActivity() {
             home_layout.visibility=View.VISIBLE
             mapview_layout.visibility=View.GONE
             offers_page.visibility= View.GONE
+            qr_code_layout.visibility=View.GONE
         }
         fun showOffers(){
             offers_layout.visibility= View.VISIBLE
@@ -230,8 +230,8 @@ class MainActivity : AppCompatActivity() {
             home_layout.visibility=View.GONE
             mapview_layout.visibility=View.GONE
             offers_page.visibility= View.GONE
+            qr_code_layout.visibility=View.GONE
             userOffers()
-
         }
 
         fun showAccount(){
@@ -250,6 +250,7 @@ class MainActivity : AppCompatActivity() {
                 mapview_layout.visibility = View.GONE
                 offers_page.visibility = View.GONE
                 login_layout.visibility = View.GONE
+                qr_code_layout.visibility=View.GONE
             } else {
                 R.id.nav_account
             }
@@ -260,6 +261,7 @@ class MainActivity : AppCompatActivity() {
             home_layout.visibility=View.GONE
             mapview_layout.visibility=View.VISIBLE
             offers_page.visibility= View.GONE
+            qr_code_layout.visibility=View.GONE
         }
         fun showOffersPage(){
             offers_page.visibility= View.VISIBLE
@@ -267,6 +269,7 @@ class MainActivity : AppCompatActivity() {
             home_layout.visibility=View.GONE
             mapview_layout.visibility=View.GONE
             offers_layout.visibility= View.GONE
+            qr_code_layout.visibility=View.GONE
         }
 
         fun showLogIn() {
@@ -281,6 +284,7 @@ class MainActivity : AppCompatActivity() {
                 home_layout.visibility = View.GONE
                 mapview_layout.visibility = View.GONE
                 login_layout.visibility = View.VISIBLE
+                qr_code_layout.visibility=View.GONE
             }
         }
 
@@ -291,6 +295,7 @@ class MainActivity : AppCompatActivity() {
             account_layout.visibility=View.GONE
             home_layout.visibility=View.GONE
             mapview_layout.visibility=View.GONE
+            qr_code_layout.visibility=View.GONE
             //else -> true
         }
 
@@ -390,6 +395,9 @@ class MainActivity : AppCompatActivity() {
         }
         btnoffers.setOnClickListener {
             showOffers()
+        }
+        offersLogo.setOnClickListener {
+            showQr()
         }
         dropDown.setOnClickListener {
             //val PopupMenu = findViewById<Button>(R.id.dropDown)

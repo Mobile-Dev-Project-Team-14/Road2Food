@@ -30,7 +30,7 @@
         android:text="Active offers"
         android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/textview2" />
 
     <Button
         android:id="@+id/totalButton"
@@ -42,7 +42,7 @@
         android:textColor="@color/white"
         app:layout_constraintEnd_toStartOf="@+id/availableButton"
         app:layout_constraintStart_toEndOf="@+id/activeOffersButton"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/textview2"
         style="?android:attr/borderlessButtonStyle"/>
 
     <Button
@@ -55,23 +55,22 @@
         android:text="Available offers"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/textview2"
         style="?android:attr/borderlessButtonStyle"/>
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Road 2 Food"
-        android:textSize="36dp"
+    <ImageView
+        android:id="@+id/tvMapTitle"
+        android:layout_width="180dp"
+        android:layout_height="173dp"
+        android:layout_marginTop="10dp"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="50dp"
-        android:textColor="@color/white"/>
+        android:src="@drawable/logo1trns" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/textview2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="55dp"
@@ -79,7 +78,7 @@
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/tvMapTitle" />
 
     <TextView
         android:id="@+id/textView3"
