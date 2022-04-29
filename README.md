@@ -6,9 +6,9 @@ In this case, a full user interface was designed to fulfil app functionality of 
 
 ## Group members
 
-Santeri – UI, map, offers and functionality
-Johanna - Backend 
-Purity – App Navigation, offers and functionality.  
+Santeri – UI, map, offers and functionality,
+Johanna - Backend,
+Purity – App Navigation, offers and functionality, &  
 Manish – Account 
 
 ## Tools
